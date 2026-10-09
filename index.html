@@ -377,12 +377,17 @@ button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px soli
 .cta-adv{font-size:14px;opacity:.85;margin-top:8px!important}.cta-adv a{color:#ffd98a}.cta-adv span{display:block}
 @media (max-width:760px){.mission{grid-template-columns:1fr;padding:20px}.mission canvas{max-width:240px}.pillars{grid-template-columns:1fr}.cta .btn{width:100%;justify-content:center}}
 .phero{position:relative;margin:-28px calc(50% - 50vw) 30px;width:100vw;height:clamp(460px,78vh,760px);overflow:hidden;background:#140c06;color:#fff}
-.ph-slides,.ph-slides img{position:absolute;inset:0;width:100%;height:100%}
-.ph-slides img{object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 1.6s ease;will-change:transform,opacity}
-.ph-slides img.on{opacity:1;animation:phkb 9s ease-out forwards}
+.ph-slides{position:absolute;inset:0}
+.ph-s{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.6s ease}
+.ph-s.on{opacity:1}
+.ph-s .bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(26px) brightness(.55) saturate(1.1);transform:scale(1.05)}
+.ph-s .fg{position:absolute;right:max(28px,6vw);top:46%;height:min(76%,600px);width:auto;max-width:34vw;object-fit:cover;border-radius:14px;box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,235,200,.18);transform:translateY(-54%)}
+.ph-s.on .fg{animation:phfg 9s ease-out forwards}
+@keyframes phfg{from{transform:translateY(-54%) scale(1)}to{transform:translateY(-54%) scale(1.035)}}
 @keyframes phkb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
 .ph-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,6,3,.45) 0,rgba(10,6,3,.1) 30%,rgba(10,6,3,.35) 60%,rgba(10,6,3,.88) 100%),linear-gradient(90deg,rgba(10,6,3,.6) 0,rgba(10,6,3,0) 60%)}
-.ph-in{position:absolute;left:max(24px,6vw);right:24px;bottom:clamp(54px,9vh,96px);max-width:900px}
+.ph-in{position:absolute;left:max(24px,6vw);right:calc(34vw + 9vw);bottom:clamp(54px,9vh,96px);max-width:900px}
+@media (max-width:900px){.ph-in{right:24px}}
 .ph-in p{margin:0}
 .ph-eb{font-weight:700;font-size:clamp(11px,1.1vw,14px);letter-spacing:.34em;text-transform:uppercase;color:#f0d7a4;margin-bottom:10px!important}
 .ph-name{font-family:"Lora",Georgia,serif;font-weight:700;font-size:clamp(64px,11vw,176px);line-height:.9;letter-spacing:.04em;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.45)}
@@ -394,16 +399,17 @@ button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px soli
 .ph-btn:hover{transform:translateY(-1px)}
 .ph-btn.gold{background:#ffc240;color:#1e0f02}.ph-btn.gold:hover{background:#ffd56e}
 .ph-btn.line{border:1px solid rgba(255,240,210,.6);color:#fff;background:rgba(255,255,255,.06);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.ph-cap{position:absolute;right:max(20px,4vw);bottom:clamp(54px,9vh,96px);display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:#f6e6c8;font-size:13px;text-align:right;opacity:0;transition:opacity .8s}
+.ph-cap{position:absolute;right:max(28px,6vw);bottom:clamp(40px,6vh,64px);display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-decoration:none;color:#f6e6c8;font-size:13px;text-align:right;opacity:0;transition:opacity .8s}
 .ph-cap.on{opacity:1}
 .ph-cap-n{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:#ffc240}
-.ph-cap-t{font-family:"Lora",Georgia,serif;font-size:16px;color:#fff;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}.ph-cap-t:hover{text-decoration:underline}
+.ph-cap-t{font-family:"Lora",Georgia,serif;font-size:16px;color:#fff;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}.ph-cap-t:hover{text-decoration:underline}.ph-cap.nolink .ph-cap-t{cursor:default;text-decoration:none;font-size:14px;opacity:.85}
 .ph-cap-c{font-size:11px;color:rgba(255,240,210,.75);text-decoration:none}.ph-cap-c:hover{text-decoration:underline}
 .ph-bars{position:absolute;left:max(24px,6vw);right:max(20px,4vw);bottom:24px;display:flex;gap:6px}
 .ph-bars i{flex:1;height:2px;background:rgba(255,255,255,.25);border-radius:2px;overflow:hidden;position:relative}
 .ph-bars i.on::after{content:"";position:absolute;inset:0;background:#ffc240;transform-origin:left;animation:phbar 7s linear forwards}
 .ph-bars i.done::after{content:"";position:absolute;inset:0;background:rgba(255,194,64,.6)}
 @keyframes phbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (max-width:900px){.ph-s .fg{display:none}.ph-s .bg{inset:0;width:100%;height:100%;filter:none;transform:none}.ph-s.on .bg{animation:phkb 9s ease-out forwards}}
 @media (max-width:700px){.phero{height:clamp(440px,74vh,640px)}.ph-shade{background:linear-gradient(180deg,rgba(10,6,3,.35) 0,rgba(10,6,3,.15) 30%,rgba(10,6,3,.6) 62%,rgba(10,6,3,.92) 100%)}
  .ph-in{left:20px;right:20px;bottom:84px}.ph-cta{flex-direction:column}.ph-btn{justify-content:center}.ph-cap{left:20px;right:auto;align-items:flex-start;text-align:left;top:20px;bottom:auto}}
 @media (prefers-reduced-motion:reduce){.ph-slides img.on{animation:none}.ph-bars i.on::after{animation:none;transform:none}}
@@ -455,7 +461,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
         <a class="ph-btn line" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">▶ Watch on YouTube · شاهد القناة</a>
       </div>
     </div>
-    <div class="ph-cap" id="ph-cap"><span class="ph-cap-n"></span><button type="button" class="ph-cap-t"></button><a class="ph-cap-c" target="_blank" rel="noopener">Photo: Wikimedia Commons · صورة من ويكيميديا</a></div>
+    <div class="ph-cap" id="ph-cap"><span class="ph-cap-n"></span><button type="button" class="ph-cap-t"></button></div>
     <div class="ph-bars" id="ph-bars" aria-hidden="true"></div>
   </section>
   <header class="top" id="map-start">
@@ -615,7 +621,6 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <p><strong>The Light Map</strong> is a Ziadeh Family Adventures family project by Riyad, his wife Hannan and their children.<br>Phase I: 23 candles across 22 historic sites, from Umm Qais to Aqaba.</p>
       <p dir="rtl" lang="ar"><strong>خريطة النور</strong> مشروع عائلي من مغامرات عائلة زيادة: رياض وزوجته حنان وأولادهما.<br>المرحلة الأولى: 23 شمعة في 22 موقعاً تاريخياً، من أم قيس إلى العقبة.</p>
     </div>
-    <p class="copy">Header photos: Wikimedia Commons contributors, under free licences (details on each photo) · صور الواجهة من ويكيميديا كومنز</p>
     <p class="copy">© 2026 Ziadeh Family Adventures · ziadehadventures.com · <a href="mailto:info@ziadehadventures.com">info@ziadehadventures.com</a></p>
   </footer>
 </div>
@@ -897,32 +902,22 @@ document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.datase
       d.style.display=(ox+x*sc<0||ox+x*sc>cw)?"none":""})}
   place();addEventListener("resize",place);if(!img.complete)img.addEventListener("load",place);})();
 
-// photo hero: freely licensed photos from Wikimedia Commons (credited on each slide)
+// photo hero: the family's own photos from their visits
 (function(){const box=document.getElementById("ph-slides"),bars=document.getElementById("ph-bars"),cap=document.getElementById("ph-cap");if(!box)return;
-  const PH=[
-    ["Umm_Qais_(Church_Terrace_at_Sunset).jpg","Umm Qais"],
-    ["Memorial_Church_of_Moses_(Mount_Nebo).jpg","Mount Nebo"],
-    ["Pella_Jordan_002.jpg","Tabqet Fahel"],
-    ["Umm_ar-Rasas_Arcs.jpg",null,"Umm ar-Rasas","أم الرصاص"],
-    ["Byzantine_church_ruins_at_the_Amman_Citadel_-_panoramio.jpg","Amman Citadel"],
-    ["Abila_(Decapolis).jpg","Abila"],
-    ["Umm_Qais_(Jordan)_banner.jpg","Umm Qais"]
-  ];
-  const w=Math.min(2560,Math.ceil(innerWidth*(devicePixelRatio||1)/320)*320);
+  const PH=[["hero/1.jpg","St George",54],["hero/3.jpg","Baptism Site",52],["hero/5.jpg",null,40],["hero/2.jpg",null,50],["hero/6.jpg","Mount Nebo",42],["hero/4.jpg",null,45]];
   const items=[];let cur=-1,timer=0;
-  PH.forEach(([f,key,en,ar])=>{const p=key?S.find(x=>x.n.startsWith(key)):null;const im=new Image();im.alt="";im.decoding="async";
-    im.onload=()=>{const it={p,f,en:en||(p&&p.n.replace(/ \(.+\)$/,"")),ar:ar||(p&&p.ar.replace(/ \(.+\)$/,"")),im};items.push(it);box.appendChild(im);bars.appendChild(document.createElement("i"));if(cur<0)show(0)};
-    im.src="https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width="+w});
-  function show(i){if(!items.length)return;cur=i%items.length;const bs=bars.querySelectorAll("i");
-    items.forEach((it,k)=>{it.im.classList.toggle("on",k===cur);if(k===cur){it.im.style.animation="none";void it.im.offsetWidth;it.im.style.animation=""}});
+  PH.forEach(([src,key,fy],k)=>{const p=key?S.find(x=>x.n.startsWith(key)):null;const f=document.createElement("figure");f.className="ph-s";
+    f.innerHTML='<img class="bg" alt=""><img class="fg" alt="">';const bg=f.children[0],fg=f.children[1];bg.style.objectPosition="50% "+fy+"%";
+    let n=0;const done=()=>{if(++n<2)return;items[k]={p,f};if(cur<0&&k===0)show(0)};bg.onload=fg.onload=done;bg.src=fg.src=src;box.appendChild(f);bars.appendChild(document.createElement("i"))});
+  function show(i){const L=items.length?PH.length:0;if(!L)return;let t=i%PH.length,g=0;while(!items[t]&&g++<PH.length)t=(t+1)%PH.length;if(!items[t])return;cur=t;
+    const bs=bars.querySelectorAll("i");box.querySelectorAll(".ph-s").forEach((f,k)=>{f.classList.toggle("on",k===cur);if(k===cur){f.style.animation="none";void f.offsetWidth;f.style.animation=""}});
     bs.forEach((b,k)=>{b.classList.remove("on","done");if(k<cur)b.classList.add("done")});if(bs[cur]){void bs[cur].offsetWidth;bs[cur].classList.add("on")}
-    const it=items[cur];cap.classList.remove("on");setTimeout(()=>{
-      cap.querySelector(".ph-cap-n").textContent=it.p?("FLAME #"+FN(it.p)+" · الشمعة "+FN(it.p)):"JORDAN · الأردن";
-      cap.querySelector(".ph-cap-t").textContent=it.en+" · "+it.ar;
-      const cr=cap.querySelector(".ph-cap-c");cr.href="https://commons.wikimedia.org/wiki/File:"+encodeURIComponent(it.f);
-      cap.classList.add("on")},300);
+    const p=items[cur].p;cap.classList.remove("on");setTimeout(()=>{
+      cap.querySelector(".ph-cap-n").textContent=p?("FLAME #"+FN(p)+" · الشمعة "+FN(p)):"THE LIGHT MAP · خريطة النور";
+      cap.querySelector(".ph-cap-t").textContent=p?(p.n.replace(/ \(.+\)$/,"")+" · "+p.ar.replace(/ \(.+\)$/,"")):"Photographed by the Ziadeh family · بعدسة عائلة زيادة";
+      cap.classList.toggle("nolink",!p);cap.classList.add("on")},300);
     clearTimeout(timer);timer=setTimeout(()=>show(cur+1),7000)}
-  cap.querySelector(".ph-cap-t").addEventListener("click",e=>{const it=items[cur];if(!it||!it.p)return;select(it.p.i,true);document.getElementById("map-start").scrollIntoView({behavior:"smooth"})});
+  cap.querySelector(".ph-cap-t").addEventListener("click",()=>{const it=items[cur];if(!it||!it.p)return;select(it.p.i,true);document.getElementById("map-start").scrollIntoView({behavior:"smooth"})});
 })();
 
 // globe
