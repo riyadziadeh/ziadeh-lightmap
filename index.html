@@ -419,7 +419,7 @@ button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px soli
 .advsec h3{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,3.4vw,36px);margin:4px 0 10px;color:#2a3a14}
 .advsec h3 .h-ar{color:#3d5220}
 .advsec p{margin:0 0 8px;color:#2a2a14;max-width:60ch;font-size:17px;line-height:1.6}
-.adv-tags{list-style:none;padding:0;margin:14px 0 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.adv-tags{list-style:none;padding:0;margin:14px 0 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.adv-tags li:last-child:nth-child(odd){grid-column:1/-1}
 .adv-tags li{background:#fffdf3;border:1px solid #d6dfba;border-radius:10px;padding:8px 12px;display:flex;justify-content:space-between;gap:8px;align-items:center}
 .adv-tags b{font-weight:600;color:#2a3a14;font-size:15px}.adv-tags span{font-family:var(--f-ar);font-weight:700;color:#3d5220}
 .adv-btn{background:#5f7a3a;color:#fff;border-radius:999px;padding:12px 20px;font-weight:600}.adv-btn:hover{background:#4a6228}
@@ -594,16 +594,29 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
     </div>
   </section>
 
+  <section class="cta" aria-labelledby="cta-h">
+    <span class="cta-flame" aria-hidden="true"></span>
+    <h3 id="cta-h">Be part of this initiative <span class="h-ar" lang="ar">كن جزءاً من هذه المبادرة</span></h3>
+    <p>Watch with us, add a candle of your own, or tell us about a forgotten church near you.</p>
+    <p dir="rtl" lang="ar">تابعنا، ضع شمعتك على الخريطة، أو احكيلنا عن كنيسة منسيّة قريبة منك.</p>
+    <div class="cta-actions">
+      <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube · اشترك بالقناة</a>
+      <button type="button" class="btn primary alt" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
+      <a class="btn ghost" href="mailto:info@ziadehadventures.com?subject=Forgotten%20church%20%C2%B7%20%D9%83%D9%86%D9%8A%D8%B3%D8%A9%20%D9%85%D9%86%D8%B3%D9%8A%D8%A9">✉ Tell us about a church · احكيلنا عن كنيسة</a>
+    </div>
+  </section>
+
   <section class="advsec" aria-labelledby="adv-h">
     <div class="adv-txt">
       <p class="eyebrow">The other half of our channel <span lang="ar">· النصف الثاني من قناتنا</span></p>
       <h3 id="adv-h">Family Adventures <span class="h-ar" lang="ar">مغامرات العائلة</span></h3>
-      <p>Beyond the churches, we explore Jordan together: hiking trails, wadis, springs, olive groves and days out in nature, filmed by the whole family.</p>
-      <p dir="rtl" lang="ar" class="p-ar">وبعيداً عن الكنائس، منكتشف الأردن مع بعض: مسارات مشي، وديان، ينابيع، كروم زيتون وأيام في الطبيعة، بتصوّرها العيلة كلها.</p>
+      <p>We explore Jordan together: hiking trails, wadis, springs, olive groves, museums and days out in nature, filmed by the whole family.</p>
+      <p dir="rtl" lang="ar" class="p-ar">منكتشف الأردن مع بعض: مسارات مشي، وديان، ينابيع، كروم زيتون، متاحف وأيام في الطبيعة، بتصوّرها العيلة كلها.</p>
       <ul class="adv-tags">
         <li><b>⛰ Trails</b><span lang="ar">مسارات</span></li>
         <li><b>💧 Wadis &amp; springs</b><span lang="ar">وديان وينابيع</span></li>
         <li><b>🌿 Nature days</b><span lang="ar">أيام بالطبيعة</span></li>
+        <li><b>🏛 Museums</b><span lang="ar">متاحف</span></li>
         <li><b>👨‍👩‍👧‍👦 Family trips</b><span lang="ar">رحلات عائلية</span></li>
       </ul>
       <a class="btn adv-btn" href="https://www.youtube.com/@ZiadehFamilyAdventures/playlists" target="_blank" rel="noopener">▶ Watch the adventures · شاهد المغامرات</a>
@@ -618,18 +631,6 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
         <g transform="translate(70 214)"><rect x="-3" y="0" width="6" height="26" fill="#5a3a1a"/><ellipse cx="0" cy="-4" rx="26" ry="18" fill="#7d8f55"/><ellipse cx="-10" cy="-10" rx="12" ry="9" fill="#93a66a"/></g>
         <g fill="#2a1604"><circle cx="252" cy="232" r="4"/><rect x="249" y="236" width="6" height="12" rx="2"/><circle cx="266" cy="236" r="3"/><rect x="264" y="239" width="5" height="9" rx="2"/><circle cx="238" cy="228" r="4"/><rect x="235" y="232" width="6" height="14" rx="2"/></g>
       </svg>
-    </div>
-  </section>
-
-  <section class="cta" aria-labelledby="cta-h">
-    <span class="cta-flame" aria-hidden="true"></span>
-    <h3 id="cta-h">Be part of this initiative <span class="h-ar" lang="ar">كن جزءاً من هذه المبادرة</span></h3>
-    <p>Watch with us, add a candle of your own, or tell us about a forgotten church near you.</p>
-    <p dir="rtl" lang="ar">تابعنا، ضع شمعتك على الخريطة، أو احكيلنا عن كنيسة منسيّة قريبة منك.</p>
-    <div class="cta-actions">
-      <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube · اشترك بالقناة</a>
-      <button type="button" class="btn primary alt" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
-      <a class="btn ghost" href="mailto:info@ziadehadventures.com?subject=Forgotten%20church%20%C2%B7%20%D9%83%D9%86%D9%8A%D8%B3%D8%A9%20%D9%85%D9%86%D8%B3%D9%8A%D8%A9">✉ Tell us about a church · احكيلنا عن كنيسة</a>
     </div>
   </section>
 
