@@ -1,0 +1,36 @@
+{
+ "name": "The Light Map · خريطة النور",
+ "short_name": "Light Map",
+ "description": "Candles lit in Jordan's ancient and forgotten churches, by the Ziadeh family.",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#f6eecb",
+ "theme_color": "#6e1a26",
+ "lang": "en",
+ "dir": "auto",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "maskable"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
