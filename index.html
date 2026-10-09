@@ -72,7 +72,16 @@ h1{color:var(--parch)}
 
 .mapbox{position:relative;background:#bcd8db;border:1px solid var(--line);border-radius:6px;height:min(720px,82vh);min-height:420px;overflow:hidden}
 @media (max-width:860px){.mapbox{height:62vh}}
-.mapbox svg{width:100%;height:100%;display:block;touch-action:manipulation}
+.mapbox svg{width:100%;height:100%;display:block;touch-action:pan-y}
+.zoomctl{position:absolute;right:12px;bottom:12px;z-index:2;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(30,15,2,.25);background:#fffaf0}
+.zoomctl button{width:42px;height:42px;border:0;background:#fffaf0;color:#2a1604;font:700 22px/1 var(--f-body),system-ui;cursor:pointer;display:grid;place-items:center}
+.zoomctl button+button{border-top:1px solid #e6d6b4}
+.zoomctl button:hover{background:#f3e3c0}
+.zoomctl button:focus-visible{outline:2px solid #c98f45;outline-offset:-2px}
+.zoomctl #zhome{font-size:18px}
+body.lights-out .zoomctl,body.lights-out .zoomctl button{background:#141822;color:#ffe7b0}
+body.lights-out .zoomctl button+button{border-top-color:#2a3042}
+.mapbox svg.grab{cursor:grab}.mapbox svg.grabbing{cursor:grabbing}
 .maplegend{position:absolute;left:12px;bottom:10px;font-family:var(--f-mono);font-size:11px;color:#4a2c0e;text-shadow:0 1px 2px #f5ecd8;letter-spacing:.06em;pointer-events:none}
 
 .land{fill:url(#jo)}
@@ -178,7 +187,7 @@ footer .mosaic-band{flex-basis:100%;margin:0 0 12px}
 .sum-ar,.p-ar{font-family:var(--f-ar);text-align:right;margin:6px 0}
 .note-ar{text-align:right}
 .s-ar{display:block;color:var(--dust);font-size:.95em}
-.h-ar{font-family:var(--f-ar);font-size:.8em;color:var(--dust);margin-inline-start:10px}
+.h-ar{font-family:var(--f-ar);font-size:.8em;font-weight:700;color:#3a2208;margin-inline-start:10px}
 .regions .arb{font-family:var(--f-ar);opacity:.85;margin-inline-start:4px}
 .madaba figcaption span{display:block;margin-top:4px}
 .livemap{position:absolute;top:12px;right:12px;z-index:2;background:#fff;color:#1e0f02;text-decoration:none;font-weight:700;font-size:14px;padding:9px 14px;border-radius:999px;box-shadow:0 2px 10px rgba(60,30,0,.25)}
@@ -216,12 +225,12 @@ body.lights-out .land{fill:#141822!important;filter:none}
 body.lights-out .nland{fill:#0b0e15!important;stroke:#141822!important}
 body.lights-out .outside,body.lights-out .water{fill:#04060b!important}
 body.lights-out .border{stroke:#2a3042!important}
-body.lights-out .city{fill:#5d6680!important;stroke:#05070d!important}
+body.lights-out .city{fill:#f2dcae!important;stroke:#05070d!important;stroke-width:3.5px!important;filter:drop-shadow(0 0 3px rgba(255,200,110,.35))}
+body.lights-out .gratlab{fill:#a89878!important;stroke:#05070d!important}
 body.lights-out .pin-label{fill:#ffe7b0!important;stroke:#05070d!important}
 body.lights-out .flame-halo{opacity:1!important;mix-blend-mode:screen}
 body.lights-out .flame-dot{fill:#fffbe6!important;stroke:#ffcf4a!important;filter:drop-shadow(0 0 4px #fff3b0) drop-shadow(0 0 10px #ffb030) drop-shadow(0 0 22px #ff8a1e)!important}
 body.lights-out .beam{filter:drop-shadow(0 0 6px #ffcf4a) drop-shadow(0 0 14px #ff9a1e);opacity:1}
-body.lights-out .city{opacity:.45}
 body.lights-out .dark-msg{height:auto;opacity:1;margin:18px 0 0}
 body.lights-out .eras-l{color:#a99}
 /* era dimming */
@@ -284,7 +293,7 @@ body{overflow-x:clip}
 .h-eyebrow{font-family:var(--f-body);font-weight:700;font-size:clamp(10px,1.3vw,20px);letter-spacing:.32em;text-transform:uppercase;color:#fff0cc}
 .h-name{font-family:"Lora",Georgia,serif;font-weight:700;font-size:clamp(54px,9.5vw,170px);line-height:.95;letter-spacing:.05em;text-shadow:0 5px 0 rgba(90,40,10,.3),0 8px 36px rgba(20,10,30,.7)}
 .h-sub{font-family:"Lora",Georgia,serif;font-weight:700;font-size:clamp(15px,2.6vw,46px);letter-spacing:.26em;padding-left:.26em;color:#ffe2b0}
-.h-ar{font-family:var(--f-ar);font-size:clamp(15px,2vw,32px);color:#ffe2b0;margin-top:2px!important}
+.hero-txt .h-ar{font-family:var(--f-ar);font-size:clamp(15px,2vw,32px);color:#ffe2b0;margin-top:2px!important}
 .h-tracks{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 26px;margin-top:clamp(6px,1.2vw,18px);font-family:var(--f-body);font-weight:600;font-size:clamp(12px,1.5vw,24px)}
 .h-tracks span{display:inline-flex;align-items:center;gap:8px}
 .h-tracks b{font-family:"Lora",Georgia,serif;font-size:1.25em}
@@ -326,7 +335,7 @@ body.lights-out .maplegend{background:rgba(20,22,30,.85);color:#ffe7b0!important
 .livewrap p{margin:0 0 12px}
 .liveframe{position:relative;width:100%;aspect-ratio:4/3;max-height:640px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .liveframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-@media (max-width:600px){.liveframe{aspect-ratio:3/4}}<style>
+@media (max-width:600px){.liveframe{aspect-ratio:3/4}}
 .beam{display:none!important}
 .flame-dot.hit{fill:transparent!important;stroke:none!important;filter:none!important}
 .pin .flame-dot.hit{fill:rgba(0,0,0,0)!important}
@@ -406,6 +415,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
         <g id="pins"></g>
       </svg>
       <a class="livemap" href="#live-h">🗺️ Live Google map <span lang="ar">· الخريطة الحيّة</span></a>
+      <div class="zoomctl" role="group" aria-label="Zoom · تكبير وتصغير"><button type="button" id="zin" aria-label="Zoom in · تكبير" title="Zoom in · تكبير">+</button><button type="button" id="zout" aria-label="Zoom out · تصغير" title="Zoom out · تصغير">−</button><button type="button" id="zhome" aria-label="Show all Jordan · كل الأردن" title="Show all Jordan · كل الأردن">⌂</button></div>
       <div class="maplegend" id="legend">Tap a candle · اضغط على شمعة</div>
     </div></div>
 
@@ -422,7 +432,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
     <div class="stat"><b id="st-sites">22</b><span>historic sites<br><i lang="ar">موقعاً تاريخياً</i></span></div>
     <div class="stat"><b id="st-km">0</b><span>km from the northernmost candle (Abila) to the southernmost (Aqaba)<br><i lang="ar">كم بين أبعد شمعة شمالاً (أبيلا) وأبعد شمعة جنوباً (العقبة)</i></span></div>
     <div class="stat"><b>c.&nbsp;300</b><span>oldest church: Aqaba<br><i lang="ar">أقدم كنيسة: العقبة</i></span></div>
-    <div class="stat"><b>−400&nbsp;m</b><span>below sea level, by the Dead Sea<br><i lang="ar">تحت سطح البحر، عند البحر الميت</i></span></div>
+    <div class="stat"><b>−400&nbsp;m</b><span>below sea level, at Lot's Cave by the Dead Sea<br><i lang="ar">تحت سطح البحر، عند كهف لوط قرب البحر الميت</i></span></div>
   </section>
 
   <section class="passport" aria-labelledby="pp-h">
@@ -488,8 +498,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <p>Tell us its name and village, and it may become one of our next candles.</p>
       <p dir="rtl" lang="ar" class="p-ar">احكيلنا اسمها والقرية، ويمكن تكون شمعتنا الجاية.</p>
       <div class="actions">
-        <a class="btn primary" href="https://www.instagram.com/ziadehadventures" target="_blank" rel="noopener">Suggest a church · رشّح كنيسة</a>
-        <a class="btn ghost" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">Send your candle · أرسل شمعتك</a>
+        <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">Send your candle · أرسل شمعتك</a>
       </div>
     </div>
   </section>
@@ -591,13 +600,14 @@ const pinEls=S.map(p=>{
 });
 
 // view state
+const HOMEVB=boxToVB(REG.all.box);
 let vb=boxToVB(REG.all.box), target=vb.slice(), region="all", selected=1, anim=null;
 function boxToVB([w,s,e,n]){return [px(w),py(n),px(e)-px(w),py(s)-py(n)]}
 function setVB(v){svg.setAttribute("viewBox",v.map(x=>x.toFixed(2)).join(" "));restyle(v)}
 function restyle(v){
   const r=svg.getBoundingClientRect(); if(!r.width) return;
   const upp=Math.max(v[2]/r.width,v[3]/r.height); // svg units per css px
-  const zoomed = region!=="all";
+  const zoomed = region!=="all" || v[2]<HOMEVB[2]/1.8;
   const LO=document.body.classList.contains("lights-out");
   pinEls.forEach(g=>{
     const sel=g._p.i===selected, inR=region==="all"||g._p.r===region;
@@ -630,6 +640,47 @@ function flyTo(v){
     if(k<1) anim=requestAnimationFrame(step);};
   anim=requestAnimationFrame(step);
 }
+
+// zoom & pan
+(function(){
+  const MAXZ=12, minW=HOMEVB[2]/MAXZ;
+  function clampV(v){let [x,y,w,h]=v; if(w<minW){const k=minW/w;x-=(w*k-w)/2;y-=(h*k-h)/2;w*=k;h*=k}
+    if(w>HOMEVB[2]*1.6){const k=HOMEVB[2]*1.6/w;x+=(w-w*k)/2;y+=(h-h*k)/2;w*=k;h*=k}return [x,y,w,h]}
+  function zoomAt(f,cx,cy,animate){const v=(anim?target:vb).slice();
+    if(cx==null){cx=v[0]+v[2]/2;cy=v[1]+v[3]/2}
+    const n=clampV([cx-(cx-v[0])/f,cy-(cy-v[1])/f,v[2]/f,v[3]/f]);
+    if(animate) flyTo(n); else {if(anim)cancelAnimationFrame(anim);anim=null;vb=n;target=n.slice();setVB(vb)}}
+  function toSvg(clientX,clientY){const r=svg.getBoundingClientRect(),v=vb,upp=Math.max(v[2]/r.width,v[3]/r.height);
+    const ox=v[0]-(r.width*upp-v[2])/2, oy=v[1]-(r.height*upp-v[3])/2;
+    return [ox+(clientX-r.left)*upp, oy+(clientY-r.top)*upp, upp]}
+  document.getElementById("zin").addEventListener("click",()=>zoomAt(1.6,null,null,true));
+  document.getElementById("zout").addEventListener("click",()=>zoomAt(1/1.6,null,null,true));
+  document.getElementById("zhome").addEventListener("click",()=>setRegion("all",true));
+  svg.addEventListener("wheel",e=>{if(!(e.ctrlKey||e.metaKey))return;
+    e.preventDefault();const [x,y]=toSvg(e.clientX,e.clientY);zoomAt(Math.exp(-e.deltaY*(e.ctrlKey?0.01:0.0025)),x,y,false)},{passive:false});
+  svg.addEventListener("dblclick",e=>{e.preventDefault();const [x,y]=toSvg(e.clientX,e.clientY);zoomAt(1.8,x,y,true)});
+  // drag to pan, two fingers to pinch
+  const pts=new Map(); let start=null, moved=false;
+  svg.classList.add("grab");
+  svg.addEventListener("pointerdown",e=>{if(e.button>0)return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1){start={x:e.clientX,y:e.clientY,v:vb.slice()};moved=false}
+    if(pts.size===2){const [a,b]=[...pts.values()];start={pinch:Math.hypot(a.x-b.x,a.y-b.y),mid:toSvg((a.x+b.x)/2,(a.y+b.y)/2),v:vb.slice()};moved=true}});
+  svg.addEventListener("pointermove",e=>{if(!pts.has(e.pointerId)||!start)return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1&&!start.pinch){const dx=e.clientX-start.x,dy=e.clientY-start.y;
+      if(!moved&&Math.hypot(dx,dy)<6)return;
+      if(!moved){moved=true;try{svg.setPointerCapture(e.pointerId)}catch(_){};svg.classList.add("grabbing")}
+      const r=svg.getBoundingClientRect(),upp=Math.max(start.v[2]/r.width,start.v[3]/r.height);
+      if(anim){cancelAnimationFrame(anim);anim=null}
+      vb=[start.v[0]-dx*upp,start.v[1]-dy*upp,start.v[2],start.v[3]];target=vb.slice();setVB(vb)}
+    else if(pts.size===2&&start.pinch){const [a,b]=[...pts.values()],d=Math.hypot(a.x-b.x,a.y-b.y),f=d/start.pinch;
+      const [cx,cy]=start.mid,v=start.v;if(anim){cancelAnimationFrame(anim);anim=null}
+      vb=clampV([cx-(cx-v[0])/f,cy-(cy-v[1])/f,v[2]/f,v[3]/f]);target=vb.slice();setVB(vb)}});
+  const end=e=>{pts.delete(e.pointerId);svg.classList.remove("grabbing");if(pts.size===0)start=null;
+    else if(pts.size===1){const [p]=[...pts.values()];start={x:p.x,y:p.y,v:vb.slice()}}};
+  svg.addEventListener("pointerup",end);svg.addEventListener("pointercancel",end);
+  svg.addEventListener("click",e=>{if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+  svg.addEventListener("touchmove",e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
+})();
 
 // region chips
 const regWrap=document.getElementById("regions");
