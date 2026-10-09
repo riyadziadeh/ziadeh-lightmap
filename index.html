@@ -329,6 +329,17 @@ body.lights-out .maplegend{background:rgba(20,22,30,.85);color:#ffe7b0!important
 .detail.flash{animation:flash 1.2s ease-out}
 @keyframes flash{0%{box-shadow:0 0 0 4px rgba(224,140,40,.55)}100%{box-shadow:0 0 0 0 rgba(224,140,40,0)}}
 @media (prefers-reduced-motion:reduce){.detail.flash{animation:none}}
+.howto{max-width:min(640px,calc(100vw - 32px));max-height:88vh;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:26px 22px 20px;background:#fffaf0;color:#2a1604;box-shadow:0 20px 60px rgba(30,15,2,.35)}
+.howto::backdrop{background:rgba(20,10,2,.55)}
+.howto h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4vw,30px);margin:0 30px 8px 0}
+.howto .ac-x{position:absolute;top:10px;right:12px;border:0;background:none;font-size:28px;line-height:1;color:#2a1604;cursor:pointer}
+.howto h3 .h-ar{display:block;margin:4px 0 0}.howto .ac-lede{margin:0 0 14px}.howto .s-ar{display:block;text-align:right;margin-top:4px}
+.ac-steps{counter-reset:s;list-style:none;padding:0;margin:0 0 18px}
+.ac-steps li{counter-increment:s;position:relative;padding:12px 0 12px 46px;border-top:1px solid #eadcbc}
+.ac-steps li::before{content:counter(s);position:absolute;left:0;top:12px;width:32px;height:32px;border-radius:50%;background:var(--flame);color:#fffaf0;display:grid;place-items:center;font-weight:700}
+.ac-steps b{font-size:17px}.ac-steps b+span{font-family:var(--f-ar);font-weight:700;margin-inline-start:8px;color:#3a2208}
+.ac-steps p{margin:4px 0 0}.ac-steps p[dir=rtl]{text-align:right;font-family:var(--f-ar)}
+button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px solid var(--line);background:transparent}
 </style>
 <style>.livewrap{margin-top:36px;background:rgba(255,251,236,.92);border:1px solid var(--line);border-radius:12px;padding:20px}
 .livewrap h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,3vw,30px);margin:0 0 6px}
@@ -498,7 +509,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <p>Tell us its name and village, and it may become one of our next candles.</p>
       <p dir="rtl" lang="ar" class="p-ar">احكيلنا اسمها والقرية، ويمكن تكون شمعتنا الجاية.</p>
       <div class="actions">
-        <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">Send your candle · أرسل شمعتك</a>
+        <button type="button" class="btn primary" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
       </div>
     </div>
   </section>
@@ -781,12 +792,25 @@ document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.datase
   document.getElementById("st-candles").textContent=document.getElementById("count").textContent;})();
 // globe
 (function(){const c=document.getElementById("globe");if(!c)return;const g=c.getContext("2d");const W=c.width,R=150,cx=W/2,cy=W/2;
-  let seed=5;const r=()=>(seed=(seed*16807)%2147483647)/2147483647;const pts=[];for(let i=0;i<900;i++){const la=Math.asin(2*r()-1),lo=r()*Math.PI*2;pts.push([la,lo]);}
-  const land=(la,lo)=>{const x=Math.sin(lo*3+la*2)+Math.cos(la*4-lo)+Math.sin(lo*1.3)*0.8;return x>0.6;};
+  const C=[[[-17,21],[-16,28],[-10,30],[-6,36],[10,37],[11,33],[20,31],[32,31],[34,28],[43,12],[51,12],[42,-1],[40,-11],[35,-24],[27,-34],[18,-34],[12,-17],[13,-6],[9,4],[-8,4],[-17,14]],
+  [[-10,36],[-9,43],[-2,44],[-4,48],[2,51],[8,54],[10,57],[5,62],[15,69],[25,71],[40,68],[60,70],[60,45],[50,45],[40,41],[29,41],[26,38],[22,36],[19,40],[16,38],[12,44],[8,44],[3,43],[-1,37]],
+  [[26,40],[36,36],[35,32],[34,28],[39,21],[43,13],[52,16],[59,22],[56,26],[51,25],[48,30],[56,27],[62,25],[66,25],[72,21],[77,8],[80,15],[87,22],[92,22],[98,16],[100,8],[104,1],[105,10],[109,12],[107,21],[117,23],[122,30],[121,40],[127,38],[130,43],[140,48],[143,59],[162,60],[180,66],[180,72],[140,73],[110,77],[80,73],[60,70],[60,45],[50,45],[42,41]],
+  [[-168,66],[-156,71],[-125,70],[-95,72],[-80,73],[-62,60],[-56,52],[-66,44],[-70,41],[-76,35],[-81,31],[-80,25],[-82,29],[-90,30],[-97,27],[-97,21],[-90,21],[-87,15],[-83,10],[-79,9],[-86,12],[-92,15],[-105,20],[-110,24],[-117,32],[-124,40],[-124,48],[-135,58],[-152,60],[-165,62]],
+  [[-55,60],[-45,60],[-20,70],[-20,82],[-60,82],[-73,77],[-58,70]],
+  [[-79,9],[-72,12],[-62,11],[-50,1],[-35,-6],[-39,-14],[-48,-26],[-58,-35],[-65,-42],[-68,-52],[-74,-52],[-73,-40],[-71,-30],[-70,-18],[-76,-14],[-81,-5],[-80,1]],
+  [[114,-22],[122,-18],[130,-12],[137,-12],[142,-11],[146,-19],[153,-26],[150,-37],[141,-38],[135,-35],[131,-31],[116,-35],[114,-29]],
+  [[-5,50],[2,51],[0,54],[-3,59],[-6,57]],[[-10,52],[-6,52],[-6,55],[-10,54]],[[130,31],[140,35],[142,43],[140,41],[135,34]],[[44,-25],[47,-25],[50,-15],[49,-12],[44,-16]],
+  [[109,1],[117,7],[119,1],[116,-4],[110,-3]],[[95,5],[106,-6],[104,-6],[98,1]],[[131,-1],[141,-3],[150,-10],[141,-9]],[[167,-46],[174,-41],[178,-38],[172,-34]],[[-24,64],[-14,64],[-14,66],[-22,66]]];
+  const inPoly=(x,y,P)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const [xi,yi]=P[i],[xj,yj]=P[j];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)c=!c}return c};
+  const isLand=(lat,lon)=>lat<-68||C.some(P=>inPoly(lon,lat,P));
+  const pts=[],N=7000,GA=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){const yy=1-2*(i+.5)/N,la=Math.asin(yy),lo=((i*GA)%(2*Math.PI))-Math.PI;
+    const deg=[la*180/Math.PI,lo*180/Math.PI];if(isLand(deg[0],deg[1]))pts.push([la,lo]);}
+  const land=()=>true;
   const jo=[31.2*Math.PI/180,36*Math.PI/180];let rot=0;const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   function draw(){g.clearRect(0,0,W,W);const grd=g.createRadialGradient(cx-40,cy-50,20,cx,cy,R);grd.addColorStop(0,"#f6e7c2");grd.addColorStop(1,"#d9b77a");g.fillStyle=grd;g.beginPath();g.arc(cx,cy,R,0,7);g.fill();
     pts.forEach(([la,lo])=>{const L=lo+rot;const z=Math.cos(la)*Math.cos(L);if(z<0)return;const x=cx+R*Math.cos(la)*Math.sin(L),y=cy-R*Math.sin(la);
-      if(land(la,lo)){g.fillStyle="rgba(120,80,30,"+(0.25+z*0.5)+")";g.beginPath();g.arc(x,y,1.8,0,7);g.fill();}});
+      g.fillStyle="rgba(110,68,22,"+(0.3+z*0.6)+")";g.beginPath();g.arc(x,y,1.25+z*0.5,0,7);g.fill();});
     const L=jo[1]+rot,z=Math.cos(jo[0])*Math.cos(L);if(z>0){const x=cx+R*Math.cos(jo[0])*Math.sin(L),y=cy-R*Math.sin(jo[0]);const gl=g.createRadialGradient(x,y,0,x,y,26);gl.addColorStop(0,"rgba(255,230,140,1)");gl.addColorStop(.3,"rgba(255,180,60,.7)");gl.addColorStop(1,"rgba(255,140,30,0)");g.fillStyle=gl;g.beginPath();g.arc(x,y,26,0,7);g.fill();g.fillStyle="#fff";g.beginPath();g.arc(x,y,3,0,7);g.fill();}
     g.strokeStyle="rgba(120,80,30,.35)";g.lineWidth=1.5;g.beginPath();g.arc(cx,cy,R,0,7);g.stroke();
     if(!reduce){rot-=0.004;requestAnimationFrame(draw);} }
@@ -856,5 +880,25 @@ requestAnimationFrame(()=>restyle(vb));
 </script>
 
 <script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}</script>
+
+<dialog id="add-candle" class="howto" aria-labelledby="ac-h">
+  <button type="button" class="ac-x" aria-label="Close · إغلاق">×</button>
+  <h3 id="ac-h">Add your candle to the map <span class="h-ar" lang="ar">ضع شمعتك على الخريطة</span></h3>
+  <p class="ac-lede">Any family, school or parish can add a flame. Here is how it works, step by step. <span lang="ar" dir="rtl" class="s-ar">أي عائلة أو مدرسة أو رعيّة بتقدر تضيف شمعة. هاي الطريقة خطوة بخطوة.</span></p>
+  <ol class="ac-steps">
+    <li><b>Choose a church</b> <span lang="ar" dir="rtl">اختر كنيسة</span><p>An old, historic or forgotten church or chapel, in Jordan or anywhere in the world. Check the map first to make sure it isn't lit yet.</p><p lang="ar" dir="rtl">كنيسة أو كابيلا قديمة أو تاريخية أو منسيّة، بالأردن أو بأي مكان بالعالم. شوف الخريطة أول لتتأكد إنها مش مضاءة.</p></li>
+    <li><b>Visit and light a candle</b> <span lang="ar" dir="rtl">زُرها وأضئ شمعة</span><p>Go with your family or group, respect the place and any guard or priest there, and light one candle.</p><p lang="ar" dir="rtl">روح مع عيلتك أو مجموعتك، احترم المكان والمسؤولين عنه، وأضئ شمعة وحدة.</p></li>
+    <li><b>Film the moment</b> <span lang="ar" dir="rtl">صوّر اللحظة</span><p>A short video is enough: the church from outside, the inside, and the candle being lit. Say the church name and the town.</p><p lang="ar" dir="rtl">فيديو قصير بكفي: الكنيسة من برا، من جوا، ولحظة إضاءة الشمعة. احكي اسم الكنيسة والبلد.</p></li>
+    <li><b>Send it to us</b> <span lang="ar" dir="rtl">ابعتلنا إياه</span><p>Upload the video to YouTube (or any link), then leave a comment on our channel with: the church name, the town, the location pin, and the video link.</p><p lang="ar" dir="rtl">ارفع الفيديو على يوتيوب (أو أي رابط)، وبعدها اترك تعليق على قناتنا فيه: اسم الكنيسة، البلد، موقعها على الخريطة، ورابط الفيديو.</p></li>
+    <li><b>Your flame joins the map</b> <span lang="ar" dir="rtl">شمعتك بتنضم للخريطة</span><p>We check the details, give your candle its number and add it to the Light Map with your name and video.</p><p lang="ar" dir="rtl">منراجع التفاصيل، منعطي شمعتك رقمها، ومنضيفها على خريطة النور مع اسمك والفيديو تبعك.</p></li>
+  </ol>
+  <div class="actions"><a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">▶ Open our YouTube channel · افتح قناتنا</a><button type="button" class="btn ghost ac-close">Close · إغلاق</button></div>
+</dialog>
+<script>
+(function(){const d=document.getElementById("add-candle"),b=document.getElementById("add-candle-btn");if(!d||!b)return;
+b.addEventListener("click",()=>{if(d.showModal)d.showModal();else d.setAttribute("open","")});
+d.querySelectorAll(".ac-x,.ac-close").forEach(x=>x.addEventListener("click",()=>d.close?d.close():d.removeAttribute("open")));
+d.addEventListener("click",e=>{if(e.target===d)d.close()});})();
+</script>
 </body>
 </html>
