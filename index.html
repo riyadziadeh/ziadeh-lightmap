@@ -218,7 +218,11 @@ body{transition:background-color 1.4s}
 .wrap>*{transition:filter 1.4s,opacity 1.4s}
 .mapbox,.mapbox svg *{transition:fill 1.4s,background-color 1.4s,stroke 1.4s}
 body.lights-out{background-color:#07080c!important;background-image:none!important}
-body.lights-out .wrap>*:not(.stage):not(.toolbar):not(.dark-msg){filter:brightness(.18) saturate(.6)}
+body.lights-out .wrap>*:not(.stage):not(.toolbar):not(.dark-msg):not(.regions){filter:brightness(.18) saturate(.6)}
+body.lights-out .regions button,body.lights-out .eras button{background:#161b27!important;color:#ffe7b0!important;border-color:#3a4258!important}
+body.lights-out .regions button em{color:#ffcf7a;opacity:1}body.lights-out .regions button[aria-pressed="true"] em{color:#1e0f02}
+body.lights-out .regions button[aria-pressed="true"],body.lights-out .eras button[aria-pressed="true"]{background:#ffc240!important;color:#1e0f02!important;border-color:#ffc240!important;box-shadow:0 0 14px rgba(255,190,70,.45)}
+body.lights-out .eras-l{color:#e8d3a8!important}
 body.lights-out .panel{filter:brightness(.55)}
 body.lights-out .mosaic-frame{background-image:none!important;background-color:#0a0c12!important;box-shadow:0 0 60px rgba(255,170,50,.12)}
 body.lights-out .livemap{opacity:.5}
@@ -234,7 +238,7 @@ body.lights-out .flame-halo{opacity:1!important;mix-blend-mode:screen}
 body.lights-out .flame-dot{fill:#fffbe6!important;stroke:#ffcf4a!important;filter:drop-shadow(0 0 4px #fff3b0) drop-shadow(0 0 10px #ffb030) drop-shadow(0 0 22px #ff8a1e)!important}
 body.lights-out .beam{filter:drop-shadow(0 0 6px #ffcf4a) drop-shadow(0 0 14px #ff9a1e);opacity:1}
 body.lights-out .dark-msg{height:auto;opacity:1;margin:18px 0 0}
-body.lights-out .eras-l{color:#a99}
+
 /* era dimming */
 .pin.era-off{opacity:.12!important;pointer-events:none}
 #register li.era-off{display:none}
@@ -349,6 +353,29 @@ body.lights-out .maplegend{background:rgba(20,22,30,.85);color:#ffe7b0!important
 .ac-steps b{font-size:17px}.ac-steps b+span{font-family:var(--f-ar);font-weight:700;margin-inline-start:8px;color:#3a2208}
 .ac-steps p{margin:4px 0 0}.ac-steps p[dir=rtl]{text-align:right;font-family:var(--f-ar)}
 button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px solid var(--line);background:transparent}
+.mission{margin-top:36px;display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:32px;align-items:center;background:rgba(255,251,236,.94);border:1px solid var(--line);border-radius:12px;padding:28px}
+.mission canvas{width:100%;max-width:320px;height:auto;display:block;margin:auto}
+.mission h3{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,3.4vw,36px);margin:4px 0 10px;color:#2a1604}
+.ms-lead{font-size:18px;line-height:1.65;margin:0 0 8px;color:#2a1604;max-width:62ch}
+.ms-lead-ar{font-family:var(--f-ar);font-size:19px;line-height:1.8;text-align:right;margin:0 0 14px;color:#2a1604}
+.pillars{list-style:none;padding:0;margin:0 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pillars li{background:#fff6e2;border:1px solid #ead7ae;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;text-align:center}
+.pillars b{font-family:var(--f-display);font-weight:400;font-size:17px;color:var(--flame)}
+.pillars span{font-family:var(--f-ar);font-weight:700;color:#3a2208}
+.creed{margin:0;font-style:italic;color:#4a2c0e;border-inline-start:3px solid var(--flame);padding-inline-start:12px}
+.creed span{display:block;font-style:normal;font-family:var(--f-ar);font-weight:700;text-align:right;margin-top:4px}
+.cta{margin-top:24px;text-align:center;background:linear-gradient(160deg,#3a1e0c,#1c0f06);color:#fff3dc;border-radius:12px;padding:36px 22px 26px;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;left:50%;top:-120px;width:420px;height:300px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,190,80,.35),rgba(255,140,30,0));pointer-events:none}
+.cta-flame{display:block;margin:0 auto 10px;width:18px;height:30px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#fff6d8,#ffc240 55%,#ff7a1e);box-shadow:0 0 24px 8px rgba(255,180,60,.55);animation:pinflick 1.8s ease-in-out infinite;transform-origin:50% 100%}
+.cta h3{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,3.6vw,40px);margin:0 0 10px;color:#fff}
+.cta h3 .h-ar{display:block;color:#ffd98a;font-family:"Cairo",var(--f-ar);font-weight:800;font-size:.85em;margin:6px 0 0}
+.cta p{margin:0 auto 6px;max-width:60ch;color:#f3e2c2}
+.cta-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:18px 0 14px}
+.cta .btn{font-size:16px;padding:12px 18px;border-radius:999px}
+.cta .btn.primary.alt{background:#ffc240;color:#2a1604}.cta .btn.primary.alt:hover{background:#ffd56e}
+.cta .btn.ghost{color:#fff3dc;border-color:rgba(255,230,180,.45)}
+.cta-adv{font-size:14px;opacity:.85;margin-top:8px!important}.cta-adv a{color:#ffd98a}.cta-adv span{display:block}
+@media (max-width:760px){.mission{grid-template-columns:1fr;padding:20px}.mission canvas{max-width:240px}.pillars{grid-template-columns:1fr}.cta .btn{width:100%;justify-content:center}}
 </style>
 <style>.livewrap{margin-top:36px;background:rgba(255,251,236,.92);border:1px solid var(--line);border-radius:12px;padding:20px}
 .livewrap h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,3vw,30px);margin:0 0 6px}
@@ -480,48 +507,33 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
 <g fill="#b7c49a" opacity=".85"><ellipse cx="54" cy="28" rx="2.6" ry="9" transform="rotate(-48 54 28)"/><ellipse cx="134" cy="22" rx="2.6" ry="9" transform="rotate(-50 134 22)"/><ellipse cx="176" cy="20" rx="2.4" ry="8" transform="rotate(-125 176 20)"/></g>
 <g fill="#3b2a35"><ellipse cx="94" cy="38" rx="4.6" ry="5.8"/><ellipse cx="103" cy="41" rx="4.2" ry="5.4"/><ellipse cx="156" cy="33" rx="4.4" ry="5.6"/></g></svg></div>
 
-  <section class="join">
-    <div>
-      <h3>Add your candle <span class="h-ar" lang="ar">أضف شمعتك</span></h3>
-      <p>The Light Map started in Jordan and is meant to grow everywhere. Any community can light a forgotten church in its own country.</p>
-      <p dir="rtl" lang="ar" class="p-ar">بدأت خريطة النور من الأردن، وحلمنا أن تكبر في كل مكان. أي مجتمع يقدر يضيء كنيسة منسيّة في بلده.</p>
-      <ol class="steps">
-        <li><span>Find a forgotten or historic church near you.<br><span lang="ar" dir="rtl" class="s-ar">ابحث عن كنيسة منسيّة أو تاريخية قريبة منك.</span></span></li>
-        <li><span>Light a candle there and film the moment.<br><span lang="ar" dir="rtl" class="s-ar">أضئ فيها شمعة وصوّر اللحظة.</span></span></li>
-        <li><span>Share it with the Ziadeh Family Adventures so your flame joins the map.<br><span lang="ar" dir="rtl" class="s-ar">شاركها مع مغامرات عائلة زيادة لتنضم شعلتك إلى الخريطة.</span></span></li>
-      </ol>
-      <div class="actions">
-        <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube · اشترك</a>
-        <a class="btn ghost" href="https://www.google.com/maps/d/viewer?mid=1nsfe_W2vnl42rIt1HNIml-nYWPFdu4w" target="_blank" rel="noopener">Open the Google map · خريطة Google</a>
-      </div>
+  <section class="mission" aria-labelledby="ms-h">
+    <div class="w-globe" aria-hidden="true"><canvas id="globe" width="360" height="360"></canvas></div>
+    <div class="ms-text">
+      <p class="eyebrow">Our mission <span lang="ar">· رسالتنا</span></p>
+      <h3 id="ms-h">One candle at a time <span class="h-ar" lang="ar">شمعة بعد شمعة</span></h3>
+      <p class="ms-lead">The Light Map is our family's journey to light a candle in every ancient and forgotten church in Jordan, then across the world. Each visit brings an old place back to life, honours those who prayed there before us and keeps our faith alive for our children.</p>
+      <p class="ms-lead-ar" dir="rtl" lang="ar">خريطة النور رحلة عائلتنا لنضيء شمعة في كل كنيسة قديمة ومنسيّة في الأردن، ثم في العالم كله. كل زيارة بترجّع الحياة لمكان قديم، وبتكرّم اللي صلّوا فيه قبلنا، وبتحافظ على إيماننا حيّ لأولادنا.</p>
+      <ul class="pillars">
+        <li><b>Heritage revived</b><span lang="ar" dir="rtl">تراث يُحيا</span></li>
+        <li><b>Ancestors remembered</b><span lang="ar" dir="rtl">أجداد نذكرهم</span></li>
+        <li><b>Faith renewed</b><span lang="ar" dir="rtl">إيمان يتجدّد</span></li>
+      </ul>
+      <p class="creed">For all churches and every denomination: one, catholic and apostolic Church. <span lang="ar" dir="rtl">لكل الكنائس وبكل طوائفها: الكنيسة الواحدة الجامعة الرسولية.</span></p>
     </div>
-    <aside class="adv">
-      <p class="eyebrow">The other half of the channel <span lang="ar">· النصف الثاني من القناة</span></p>
-      <div class="adv-head"><svg viewBox="0 0 220 60" aria-hidden="true"><path d="M8 40 C 60 30, 120 26, 212 18" stroke="#7a5233" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-<g fill="#8fa66a"><ellipse cx="30" cy="30" rx="3.4" ry="11" transform="rotate(-55 30 30)"/><ellipse cx="44" cy="44" rx="3.4" ry="11" transform="rotate(-120 44 44)"/><ellipse cx="66" cy="24" rx="3.4" ry="12" transform="rotate(-60 66 24)"/><ellipse cx="82" cy="40" rx="3.4" ry="11" transform="rotate(-118 82 40)"/><ellipse cx="104" cy="19" rx="3.4" ry="12" transform="rotate(-62 104 19)"/><ellipse cx="122" cy="35" rx="3.4" ry="11" transform="rotate(-116 122 35)"/><ellipse cx="146" cy="15" rx="3.2" ry="11" transform="rotate(-64 146 15)"/><ellipse cx="164" cy="30" rx="3.2" ry="10" transform="rotate(-114 164 30)"/><ellipse cx="188" cy="12" rx="3" ry="10" transform="rotate(-66 188 12)"/><ellipse cx="204" cy="24" rx="3" ry="9" transform="rotate(-112 204 24)"/></g>
-<g fill="#b7c49a" opacity=".85"><ellipse cx="54" cy="28" rx="2.6" ry="9" transform="rotate(-48 54 28)"/><ellipse cx="134" cy="22" rx="2.6" ry="9" transform="rotate(-50 134 22)"/><ellipse cx="176" cy="20" rx="2.4" ry="8" transform="rotate(-125 176 20)"/></g>
-<g fill="#3b2a35"><ellipse cx="94" cy="38" rx="4.6" ry="5.8"/><ellipse cx="103" cy="41" rx="4.2" ry="5.4"/><ellipse cx="156" cy="33" rx="4.4" ry="5.6"/></g></svg><h4>Family Adventures <span class="h-ar" lang="ar">مغامرات العائلة</span></h4></div>
-      <p>Trips, trails and days out in Jordan's nature, filmed by the whole family. Those videos live in their own playlist, apart from the Light Map.</p>
-      <p dir="rtl" lang="ar" class="p-ar">رحلات ومسارات وأيام في طبيعة الأردن، تصوّرها العائلة كلها، في قائمة تشغيل خاصة بعيداً عن خريطة النور.</p>
-      <a class="btn ghost" href="https://www.youtube.com/@ZiadehFamilyAdventures/playlists" target="_blank" rel="noopener">See the playlists · قوائم التشغيل</a>
-    </aside>
   </section>
 
-
-  <section class="world">
-    <div class="w-globe" aria-hidden="true"><canvas id="globe" width="360" height="360"></canvas></div>
-    <div class="w-text">
-      <p class="eyebrow">Phase II <span lang="ar">· المرحلة الثانية</span></p>
-      <h3>From Jordan to the world <span class="h-ar" lang="ar">من الأردن إلى العالم</span></h3>
-      <p>Every country has churches that time forgot. When you light one, send us your video and it will join the next map.</p>
-      <p dir="rtl" lang="ar" class="p-ar">في كل بلد كنائس نسيها الزمن. لما تضيء وحدة منها، ابعتلنا الفيديو لتنضم للخريطة الجاية.</p>
-      <h4 class="nom-h">Know a forgotten church? <span class="h-ar" lang="ar">بتعرف كنيسة منسيّة؟</span></h4>
-      <p>Tell us its name and village, and it may become one of our next candles.</p>
-      <p dir="rtl" lang="ar" class="p-ar">احكيلنا اسمها والقرية، ويمكن تكون شمعتنا الجاية.</p>
-      <div class="actions">
-        <button type="button" class="btn primary" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
-      </div>
+  <section class="cta" aria-labelledby="cta-h">
+    <span class="cta-flame" aria-hidden="true"></span>
+    <h3 id="cta-h">Be part of this initiative <span class="h-ar" lang="ar">كن جزءاً من هذه المبادرة</span></h3>
+    <p>Watch with us, add a candle of your own, or tell us about a forgotten church near you.</p>
+    <p dir="rtl" lang="ar">تابعنا، ضع شمعتك على الخريطة، أو احكيلنا عن كنيسة منسيّة قريبة منك.</p>
+    <div class="cta-actions">
+      <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube · اشترك بالقناة</a>
+      <button type="button" class="btn primary alt" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
+      <a class="btn ghost" href="mailto:info@ziadehadventures.com?subject=Forgotten%20church%20%C2%B7%20%D9%83%D9%86%D9%8A%D8%B3%D8%A9%20%D9%85%D9%86%D8%B3%D9%8A%D8%A9">✉ Tell us about a church · احكيلنا عن كنيسة</a>
     </div>
+    <p class="cta-adv">Also on the channel: <a href="https://www.youtube.com/@ZiadehFamilyAdventures/playlists" target="_blank" rel="noopener">Family Adventures</a>, our trips and trails in Jordan's nature. <span lang="ar" dir="rtl">وكمان على القناة: <a href="https://www.youtube.com/@ZiadehFamilyAdventures/playlists" target="_blank" rel="noopener">مغامرات العائلة</a>، رحلاتنا ومساراتنا في طبيعة الأردن.</span></p>
   </section>
 
   <footer>
