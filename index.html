@@ -192,10 +192,12 @@ footer .mosaic-band{flex-basis:100%;margin:0 0 12px}
 .madaba figcaption span{display:block;margin-top:4px}
 .livemap{position:absolute;top:12px;right:12px;z-index:2;background:#fff;color:#1e0f02;text-decoration:none;font-weight:700;font-size:14px;padding:9px 14px;border-radius:999px;box-shadow:0 2px 10px rgba(60,30,0,.25)}
 .livemap:hover{background:#fff4dc}
-.credits{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;width:100%;font-size:14px;line-height:1.6;color:var(--parch)}
+.credits{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 32px;width:100%;font-size:14px;line-height:1.6;color:var(--parch)}
+.foot-logo{grid-column:2;grid-row:1;width:auto;height:130px;display:block;margin:0 auto}
+.credits>p:first-of-type{grid-column:1;grid-row:1}.credits>p[dir=rtl]{grid-column:3;grid-row:1}
 .credits p{margin:0}
 .credits strong{color:var(--flame)}
-@media (max-width:700px){.credits{grid-template-columns:1fr}}
+@media (max-width:700px){.credits{grid-template-columns:1fr}.foot-logo,.credits>p:first-of-type,.credits>p[dir=rtl]{grid-column:1;grid-row:auto}.foot-logo{height:110px}}
 .copy{width:100%;margin:10px 0 0;font-size:12px;color:var(--dust);letter-spacing:.04em}
 footer{background:rgba(255,251,236,.9);border-radius:8px;padding:0 20px 18px}
 
@@ -517,6 +519,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
   <footer>
     <div class="mosaic-band" data-mosaic aria-hidden="true"></div>
     <div class="credits">
+      <img class="foot-logo" src="ziadeh-logo.png" width="411" height="440" alt="Ziadeh Family Adventures logo · شعار مغامرات عائلة زيادة" loading="lazy">
       <p><strong>The Light Map</strong> is a Ziadeh Family Adventures family project by Riyad, his wife Hannan and their children.<br>Phase I: 23 candles across 22 historic sites, from Umm Qais to Aqaba.</p>
       <p dir="rtl" lang="ar"><strong>خريطة النور</strong> مشروع عائلي من مغامرات عائلة زيادة: رياض وزوجته حنان وأولادهما.<br>المرحلة الأولى: 23 شمعة في 22 موقعاً تاريخياً، من أم قيس إلى العقبة.</p>
     </div>
