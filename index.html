@@ -923,7 +923,7 @@ document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.datase
 
 // photo hero: the family's own photos from their visits
 (function(){const box=document.getElementById("ph-slides"),bars=document.getElementById("ph-bars"),cap=document.getElementById("ph-cap");if(!box)return;
-  const PH=[["hero/1.jpg","St George",54],["hero/3.jpg","Baptism Site",52],["hero/5.jpg",null,40],["hero/2.jpg",null,50],["hero/6.jpg","Mount Nebo",42],["hero/4.jpg",null,45]];
+  const PH=[["hero/1.jpg","St George",54],["hero/3.jpg","Baptism Site",52],["hero/5.jpg","Tabqet Fahel",40],["hero/2.jpg","Khirbet al-Mukhayyat",50],["hero/6.jpg","Mount Nebo",42],["hero/4.jpg","Apostles",45]];
   const items=[];let cur=-1,timer=0;
   PH.forEach(([src,key,fy],k)=>{const p=key?S.find(x=>x.n.startsWith(key)):null;const f=document.createElement("figure");f.className="ph-s";
     f.innerHTML='<img class="bg" alt=""><img class="fg" alt="">';const bg=f.children[0],fg=f.children[1];bg.style.objectPosition="50% "+fy+"%";
@@ -941,7 +941,7 @@ document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.datase
 
 // desktop: all six photos side by side
 (function(){const gr=document.getElementById("ph-grid");if(!gr)return;
-  const PH=[["hero/5.jpg",null,40],["hero/4.jpg",null,45],["hero/2.jpg",null,50],["hero/6.jpg","Mount Nebo",42],["hero/1.jpg","St George",50],["hero/3.jpg","Baptism Site",50,30]];
+  const PH=[["hero/5.jpg","Tabqet Fahel",40],["hero/4.jpg","Apostles",45],["hero/2.jpg","Khirbet al-Mukhayyat",50],["hero/6.jpg","Mount Nebo",42],["hero/1.jpg","St George",50],["hero/3.jpg","Baptism Site",50,30]];
   PH.forEach(([src,key,fy,fx],k)=>{const p=key?S.find(x=>x.n.startsWith(key)):null;const t=document.createElement(p?"button":"div");t.className="ph-t";if(p)t.type="button";
     t.style.animationDelay=(k*0.12)+"s";t.innerHTML='<img alt="" loading="eager" decoding="async"><span class="ph-tl"></span>';const im=t.querySelector("img");im.src=src;im.style.objectPosition=(fx||50)+"% "+fy+"%";
     if(p){t.querySelector(".ph-tl").textContent=p.n.replace(/ \(.+\)$/,"")+" · "+p.ar.replace(/ \(.+\)$/,"");t.setAttribute("aria-label",p.n);
