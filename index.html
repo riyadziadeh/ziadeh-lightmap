@@ -198,7 +198,7 @@ footer .mosaic-band{flex-basis:100%;margin:0 0 12px}
 .credits p{margin:0}
 .credits strong{color:var(--flame)}
 @media (max-width:700px){.credits{grid-template-columns:1fr}.foot-logo,.credits>p:first-of-type,.credits>p[dir=rtl]{grid-column:1;grid-row:auto}.foot-logo{height:110px}}
-.copy{width:100%;margin:10px 0 0;font-size:12px;color:var(--dust);letter-spacing:.04em}
+.copy a{color:inherit}.howto a{color:var(--flame);font-weight:600}.copy{width:100%;margin:10px 0 0;font-size:12px;color:var(--dust);letter-spacing:.04em}
 footer{background:rgba(255,251,236,.9);border-radius:8px;padding:0 20px 18px}
 
 /* toolbar */
@@ -523,7 +523,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <p><strong>The Light Map</strong> is a Ziadeh Family Adventures family project by Riyad, his wife Hannan and their children.<br>Phase I: 23 candles across 22 historic sites, from Umm Qais to Aqaba.</p>
       <p dir="rtl" lang="ar"><strong>خريطة النور</strong> مشروع عائلي من مغامرات عائلة زيادة: رياض وزوجته حنان وأولادهما.<br>المرحلة الأولى: 23 شمعة في 22 موقعاً تاريخياً، من أم قيس إلى العقبة.</p>
     </div>
-    <p class="copy">© 2026 Ziadeh Family Adventures · ziadehadventures.com</p>
+    <p class="copy">© 2026 Ziadeh Family Adventures · ziadehadventures.com · <a href="mailto:info@ziadehadventures.com">info@ziadehadventures.com</a></p>
   </footer>
 </div>
 
@@ -892,10 +892,10 @@ requestAnimationFrame(()=>restyle(vb));
     <li><b>Choose a church</b> <span lang="ar" dir="rtl">اختر كنيسة</span><p>An old, historic or forgotten church or chapel, in Jordan or anywhere in the world. Check the map first to make sure it isn't lit yet.</p><p lang="ar" dir="rtl">كنيسة أو كابيلا قديمة أو تاريخية أو منسيّة، بالأردن أو بأي مكان بالعالم. شوف الخريطة أول لتتأكد إنها مش مضاءة.</p></li>
     <li><b>Visit and light a candle</b> <span lang="ar" dir="rtl">زُرها وأضئ شمعة</span><p>Go with your family or group, respect the place and any guard or priest there, and light one candle.</p><p lang="ar" dir="rtl">روح مع عيلتك أو مجموعتك، احترم المكان والمسؤولين عنه، وأضئ شمعة وحدة.</p></li>
     <li><b>Film the moment</b> <span lang="ar" dir="rtl">صوّر اللحظة</span><p>A short video is enough: the church from outside, the inside, and the candle being lit. Say the church name and the town.</p><p lang="ar" dir="rtl">فيديو قصير بكفي: الكنيسة من برا، من جوا، ولحظة إضاءة الشمعة. احكي اسم الكنيسة والبلد.</p></li>
-    <li><b>Send it to us</b> <span lang="ar" dir="rtl">ابعتلنا إياه</span><p>Upload the video to YouTube (or any link), then leave a comment on our channel with: the church name, the town, the location pin, and the video link.</p><p lang="ar" dir="rtl">ارفع الفيديو على يوتيوب (أو أي رابط)، وبعدها اترك تعليق على قناتنا فيه: اسم الكنيسة، البلد، موقعها على الخريطة، ورابط الفيديو.</p></li>
+    <li><b>Send it to us</b> <span lang="ar" dir="rtl">ابعتلنا إياه</span><p>Email <a href="mailto:info@ziadehadventures.com">info@ziadehadventures.com</a> with: the church name, the town, the location pin, and the video (a YouTube or Drive link).</p><p lang="ar" dir="rtl">ابعت إيميل على <a href="mailto:info@ziadehadventures.com" dir="ltr">info@ziadehadventures.com</a> فيه: اسم الكنيسة، البلد، موقعها على الخريطة، والفيديو (رابط يوتيوب أو درايف).</p></li>
     <li><b>Your flame joins the map</b> <span lang="ar" dir="rtl">شمعتك بتنضم للخريطة</span><p>We check the details, give your candle its number and add it to the Light Map with your name and video.</p><p lang="ar" dir="rtl">منراجع التفاصيل، منعطي شمعتك رقمها، ومنضيفها على خريطة النور مع اسمك والفيديو تبعك.</p></li>
   </ol>
-  <div class="actions"><a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures" target="_blank" rel="noopener">▶ Open our YouTube channel · افتح قناتنا</a><button type="button" class="btn ghost ac-close">Close · إغلاق</button></div>
+  <div class="actions"><a class="btn primary" href="mailto:info@ziadehadventures.com?subject=New%20candle%20%C2%B7%20%D8%B4%D9%85%D8%B9%D8%A9%20%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9&body=Church%20%C2%B7%20%D8%A7%D8%B3%D9%85%20%D8%A7%D9%84%D9%83%D9%86%D9%8A%D8%B3%D8%A9%3A%0ATown%20%C2%B7%20%D8%A7%D9%84%D8%A8%D9%84%D8%AF%3A%0ALocation%20%C2%B7%20%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9%3A%0AVideo%20%C2%B7%20%D8%A7%D9%84%D9%81%D9%8A%D8%AF%D9%8A%D9%88%3A%0A">✉ Email us your candle · ابعتلنا شمعتك</a><button type="button" class="btn ghost ac-close">Close · إغلاق</button></div>
 </dialog>
 <script>
 (function(){const d=document.getElementById("add-candle"),b=document.getElementById("add-candle-btn");if(!d||!b)return;
