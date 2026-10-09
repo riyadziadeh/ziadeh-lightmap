@@ -425,6 +425,24 @@ button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px soli
 .adv-btn{background:#5f7a3a;color:#fff;border-radius:999px;padding:12px 20px;font-weight:600}.adv-btn:hover{background:#4a6228}
 .adv-art svg{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 10px 30px rgba(60,80,20,.18)}
 @media (max-width:760px){.advsec{grid-template-columns:1fr;padding:20px}.adv-art{order:-1}.adv-tags{grid-template-columns:1fr}.adv-btn{width:100%;justify-content:center}}
+.ph-grid{display:none}
+@media (min-width:901px){
+ .ph-slides,.ph-bars,.ph-cap{display:none!important}
+ .ph-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;background:#140c06}
+ .ph-t{position:relative;overflow:hidden;border:0;padding:0;margin:0;background:#140c06;opacity:0;animation:phin 1.2s ease forwards}
+ button.ph-t{cursor:pointer}
+ .ph-t img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 1.2s ease,filter .6s ease;filter:saturate(1.05)}
+ .ph-t:nth-child(odd) img{animation:phdrift 14s ease-in-out infinite alternate}
+ .ph-t:nth-child(even) img{animation:phdrift 16s ease-in-out infinite alternate-reverse}
+ button.ph-t:hover img{transform:scale(1.08);filter:saturate(1.15) brightness(1.08)}
+ .ph-tl{position:absolute;left:12px;right:12px;top:14px;font-family:"Lora",Georgia,serif;font-size:14px;color:#fff;text-align:left;text-shadow:0 1px 8px rgba(0,0,0,.8);opacity:0;transform:translateY(-4px);transition:opacity .4s,transform .4s}
+ button.ph-t:hover .ph-tl{opacity:1;transform:none}
+ .ph-shade{background:linear-gradient(180deg,rgba(10,6,3,.25) 0,rgba(10,6,3,.05) 30%,rgba(10,6,3,.55) 62%,rgba(10,6,3,.92) 100%),linear-gradient(90deg,rgba(10,6,3,.55) 0,rgba(10,6,3,0) 55%);pointer-events:none}
+ .ph-in{right:24px}
+}
+@keyframes phin{to{opacity:1}}
+@keyframes phdrift{from{transform:scale(1.03) translateY(0)}to{transform:scale(1.09) translateY(-2%)}}
+@media (prefers-reduced-motion:reduce){.ph-t,.ph-t img{animation:none!important;opacity:1}}
 </style>
 <style>.livewrap{margin-top:36px;background:rgba(255,251,236,.92);border:1px solid var(--line);border-radius:12px;padding:20px}
 .livewrap h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,3vw,30px);margin:0 0 6px}
@@ -451,6 +469,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
 <div class="wrap">
   <section class="phero" aria-label="Ziadeh Family Adventures">
     <div class="ph-slides" id="ph-slides" aria-hidden="true"></div>
+    <div class="ph-grid" id="ph-grid"></div>
     <div class="ph-shade" aria-hidden="true"></div>
     <div class="ph-in">
       <p class="ph-eb">Grace in the Holy Land · Jordan</p>
@@ -918,6 +937,16 @@ document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.datase
       cap.classList.toggle("nolink",!p);cap.classList.add("on")},300);
     clearTimeout(timer);timer=setTimeout(()=>show(cur+1),7000)}
   cap.querySelector(".ph-cap-t").addEventListener("click",()=>{const it=items[cur];if(!it||!it.p)return;select(it.p.i,true);document.getElementById("map-start").scrollIntoView({behavior:"smooth"})});
+})();
+
+// desktop: all six photos side by side
+(function(){const gr=document.getElementById("ph-grid");if(!gr)return;
+  const PH=[["hero/5.jpg",null,40],["hero/4.jpg",null,45],["hero/2.jpg",null,50],["hero/6.jpg","Mount Nebo",42],["hero/1.jpg","St George",50],["hero/3.jpg","Baptism Site",50,30]];
+  PH.forEach(([src,key,fy,fx],k)=>{const p=key?S.find(x=>x.n.startsWith(key)):null;const t=document.createElement(p?"button":"div");t.className="ph-t";if(p)t.type="button";
+    t.style.animationDelay=(k*0.12)+"s";t.innerHTML='<img alt="" loading="eager" decoding="async"><span class="ph-tl"></span>';const im=t.querySelector("img");im.src=src;im.style.objectPosition=(fx||50)+"% "+fy+"%";
+    if(p){t.querySelector(".ph-tl").textContent=p.n.replace(/ \(.+\)$/,"")+" · "+p.ar.replace(/ \(.+\)$/,"");t.setAttribute("aria-label",p.n);
+      t.addEventListener("click",()=>{select(p.i,true);document.getElementById("map-start").scrollIntoView({behavior:"smooth"})})}
+    gr.appendChild(t)});
 })();
 
 // globe
