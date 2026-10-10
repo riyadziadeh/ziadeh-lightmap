@@ -203,7 +203,11 @@ footer .mosaic-band{flex-basis:100%;margin:0 0 12px}
 .credits p{margin:0}
 .credits strong{color:var(--flame)}
 @media (max-width:700px){.credits{grid-template-columns:1fr}.foot-logo,.credits>p:first-of-type,.credits>p[dir=rtl]{grid-column:1;grid-row:auto}.foot-logo{height:110px}}
-.copy a{color:inherit}.howto a{color:var(--flame);font-weight:600}.copy{width:100%;margin:10px 0 0;font-size:12px;color:var(--dust);letter-spacing:.04em}
+.copy a{color:inherit}
+.visits{flex-basis:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 2px;font-size:14px;color:var(--dust)}
+.visits[hidden]{display:none}
+.visits svg{color:var(--flame)}
+.visits b{font-family:var(--f-display);font-weight:400;font-size:20px;color:var(--flame);font-variant-numeric:tabular-nums}.howto a{color:var(--flame);font-weight:600}.copy{width:100%;margin:10px 0 0;font-size:12px;color:var(--dust);letter-spacing:.04em}
 footer{background:rgba(255,251,236,.9);border-radius:8px;padding:0 20px 18px}
 
 /* toolbar */
@@ -691,6 +695,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <p><strong>The Light Map</strong> is a family project by Ziadeh Family Adventures.<br>Phase I: 23 candles across 22 historic sites, from Umm Qais to Aqaba.</p>
       <p dir="rtl" lang="ar"><strong>خريطة النور</strong> مشروع عائلي من مغامرات عائلة زيادة.<br>المرحلة الأولى: 23 شمعة في 22 موقعاً تاريخياً، من أم قيس إلى العقبة.</p>
     </div>
+    <p class="visits" id="visits" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.3 1.5 12c1.2 2.7 5 7 10.5 7s9.3-4.3 10.5-7C21.3 9.3 17.5 5 12 5zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-2.3a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4z" fill="currentColor"/></svg><b id="visits-n">0</b> visits · <span lang="ar">زيارة للموقع</span></p>
     <p class="copy">© 2026 Ziadeh Family Adventures · ziadehadventures.com · <a href="mailto:info@ziadehadventures.com">info@ziadehadventures.com</a></p>
   </footer>
 </div>
@@ -1168,6 +1173,22 @@ requestAnimationFrame(()=>restyle(vb));
 b.addEventListener("click",()=>{if(d.showModal)d.showModal();else d.setAttribute("open","")});
 d.querySelectorAll(".ac-x,.ac-close").forEach(x=>x.addEventListener("click",()=>d.close?d.close():d.removeAttribute("open")));
 d.addEventListener("click",e=>{if(e.target===d)d.close()});})();
+</script>
+<script>
+(function(){
+  // Visit counter: counts once per browser session (abacus.jasoncameron.dev, free, CORS)
+  var el=document.getElementById("visits"), n=document.getElementById("visits-n"); if(!el||!n||!window.fetch) return;
+  var base="https://abacus.jasoncameron.dev/", key="ziadehadventures/site-visits", seen=false;
+  try{ seen=sessionStorage.getItem("zfa-visit")==="1"; }catch(e){}
+  fetch(base+(seen?"get/":"hit/")+key).then(function(r){ return r.ok?r.json():Promise.reject(r.status); }).then(function(d){
+    if(typeof d.value!=="number") return;
+    try{ sessionStorage.setItem("zfa-visit","1"); }catch(e){}
+    var target=d.value, t0=null, dur=1200;
+    el.hidden=false;
+    function step(t){ if(t0===null) t0=t; var p=Math.min(1,(t-t0)/dur); n.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString("en-US"); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }).catch(function(){});
+})();
 </script>
 </body>
 </html>
