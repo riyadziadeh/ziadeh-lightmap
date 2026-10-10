@@ -448,6 +448,9 @@ button.btn{font:inherit;cursor:pointer;border:0}button.btn.ghost{border:1px soli
 @keyframes phin{to{opacity:1}}
 @keyframes phdrift{from{transform:scale(1.03) translateY(0)}to{transform:scale(1.09) translateY(-2%)}}
 @media (prefers-reduced-motion:reduce){.ph-t,.ph-t img{animation:none!important;opacity:1}}
+.fnote{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;padding:10px 12px;border-radius:8px;background:#fff3d6;border:1px solid #f0c66e;font-size:14px;color:#4a2c0e}
+.fnote[hidden]{display:none}
+.fnote button{font:inherit;font-weight:700;background:var(--flame);color:#fffaf0;border:0;border-radius:999px;padding:7px 14px;cursor:pointer}
 </style>
 <style>.livewrap{margin-top:36px;background:rgba(255,251,236,.92);border:1px solid var(--line);border-radius:12px;padding:20px}
 .livewrap h3{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,3vw,30px);margin:0 0 6px}
@@ -545,6 +548,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
 
     <div class="panel">
       <p class="reg-hint">Choose a church <span lang="ar">· اختر كنيسة</span></p>
+      <div class="fnote" id="fnote" hidden><span id="fnote-t"></span><button type="button" id="fnote-b">Show all · عرض الكل</button></div>
       <ol class="register" id="register" aria-label="All candles"></ol>
       <article class="detail" id="detail" aria-live="polite"></article>
     </div>
@@ -858,6 +862,7 @@ function setRegion(k,fly){
   document.querySelectorAll("#register li").forEach(li=>li.hidden=!(k==="all"||li.dataset.r===k));
   document.getElementById("legend").textContent = k==="all" ? "Tap a candle · اضغط على شمعة" : REG[k].label+" · "+REG[k].ar;
   if(fly) flyTo(boxToVB(REG[k].box)); else restyle(vb);
+  if(typeof fnote==="function")try{fnote()}catch(e){}
 }
 
 // register
@@ -933,7 +938,12 @@ let era="all";
 document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.dataset.era;
   document.querySelectorAll(".eras button").forEach(x=>x.setAttribute("aria-pressed",x===b));
   pinEls.forEach(g=>g.classList.toggle("era-off",era!=="all"&&g._p.era!==era));
-  document.querySelectorAll("#register li").forEach((li,i)=>li.classList.toggle("era-off",era!=="all"&&S[i].era!==era));});
+  document.querySelectorAll("#register li").forEach((li,i)=>li.classList.toggle("era-off",era!=="all"&&S[i].era!==era));fnote();});
+function fnote(){const n=document.getElementById("fnote");if(!n)return;const vis=[...document.querySelectorAll("#register li")].filter(li=>!li.hidden&&!li.classList.contains("era-off")).length;
+  const on=(typeof era!=="undefined"&&era!=="all")||region!=="all";n.hidden=!on;
+  document.getElementById("fnote-t").textContent="Filtered: "+vis+" of "+S.length+" sites · فلتر: "+vis+" من "+S.length+" موقع";
+  document.getElementById("fnote-b").textContent="Show all · عرض الكل"}
+document.getElementById("fnote-b").onclick=()=>{const a=document.querySelector('.eras button[data-era="all"]');if(a)a.click();setRegion("all",true);fnote()};
 // stats: straight-line distance between the northernmost and southernmost candles
 (function(){const R=6371,rad=d=>d*Math.PI/180;const n=S.reduce((a,b)=>b.lat>a.lat?b:a),so=S.reduce((a,b)=>b.lat<a.lat?b:a);
   const dl=rad(so.lat-n.lat),dn=rad(so.lon-n.lon);const h=Math.sin(dl/2)**2+Math.cos(rad(n.lat))*Math.cos(rad(so.lat))*Math.sin(dn/2)**2;
