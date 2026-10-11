@@ -1178,7 +1178,7 @@ d.addEventListener("click",e=>{if(e.target===d)d.close()});})();
 (function(){
   // Visit counter: counts once per browser session (abacus.jasoncameron.dev, free, CORS)
   var el=document.getElementById("visits"), n=document.getElementById("visits-n"); if(!el||!n||!window.fetch) return;
-  var base="https://abacus.jasoncameron.dev/", key="ziadehadventures/site-visits", seen=false;
+  var base="https://abacus.jasoncameron.dev/", key="ziadehadventures/site-visits-2", seen=false;
   try{ seen=sessionStorage.getItem("zfa-visit")==="1"; }catch(e){}
   fetch(base+(seen?"get/":"hit/")+key).then(function(r){ return r.ok?r.json():Promise.reject(r.status); }).then(function(d){
     if(typeof d.value!=="number") return;
