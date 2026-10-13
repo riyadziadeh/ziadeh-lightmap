@@ -237,13 +237,13 @@ body.lights-out .voice-hint{color:#ffe7b0}
 .dark-msg{margin:0;height:0;overflow:hidden;opacity:0;text-align:center;font-family:var(--f-display);font-size:clamp(20px,3vw,30px);color:#ffe7b0;transition:opacity 1.2s,height .6s}
 
 /* intention box */
-.intent{position:relative;overflow:hidden;margin:48px auto 0;max-width:760px;padding:44px 28px 34px;border-radius:26px;text-align:center;color:#ffe9c2;
-  background:radial-gradient(ellipse at 50% 0%,rgba(255,176,64,.35),transparent 60%),linear-gradient(160deg,#3a1d07 0%,#1e0f04 55%,#120a05 100%);
-  border:1px solid rgba(255,196,100,.35);box-shadow:0 18px 50px rgba(52,26,8,.35),inset 0 0 0 6px rgba(255,214,140,.05)}
+.intent{position:relative;margin:34px auto 0;max-width:620px;padding:30px 22px 26px;border-radius:22px;text-align:center;color:#ffe9c2;
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,176,64,.28),transparent 65%),rgba(18,10,5,.55);
+  border:1px solid rgba(255,196,100,.35);box-shadow:inset 0 0 0 5px rgba(255,214,140,.05)}
 .intent .in-glow{position:absolute;left:50%;top:-120px;width:420px;height:420px;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,190,80,.28),transparent 65%);pointer-events:none}
 .intent .eyebrow{color:#ffc56b}
-.intent h3{position:relative;font-family:var(--f-display);font-size:clamp(22px,3.4vw,32px);color:#fff1d6;margin:6px 0 10px;line-height:1.25}
-.intent h3 .h-ar{display:block;font-family:var(--f-ar);color:#ffcf7a;font-size:.9em;margin-top:4px}
+.intent h4{position:relative;font-family:var(--f-display);font-size:clamp(22px,3.4vw,32px);color:#fff1d6;margin:6px 0 10px;line-height:1.25}
+.intent h4 .h-ar{display:block;font-family:var(--f-ar);color:#ffcf7a;font-size:.9em;margin-top:4px}
 .in-lead{position:relative;max-width:560px;margin:6px auto;color:#f3dcb4;font-size:16px;line-height:1.6}
 .in-lead[lang="ar"]{font-family:var(--f-ar)}
 .in-candle{position:relative;width:22px;height:70px;margin:0 auto 14px}
@@ -673,25 +673,6 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
     </div>
   </section>
 
-  <section class="intent" id="intention" aria-labelledby="in-h">
-    <div class="in-glow" aria-hidden="true"></div>
-    <div class="in-candle" aria-hidden="true"><span class="in-flame"></span><span class="in-wax"></span></div>
-    <p class="eyebrow">A candle for your intention <span lang="ar">· شمعة على نيّتك</span></p>
-    <h3 id="in-h">Write an intention, we will light a candle for it <span class="h-ar" lang="ar">اكتب نيّة، ونضيء لها شمعة</span></h3>
-    <p class="in-lead">Every so often we print the intentions and place them in a church on our journey, with a candle lit for each one.</p>
-    <p class="in-lead" dir="rtl" lang="ar">كل فترة نطبع النوايا ونضعها في كنيسة من كنائس رحلتنا، ونضيء شمعة لكل نيّة.</p>
-    <form class="in-form" id="in-form" autocomplete="off">
-      <label class="in-l" for="in-text">Your intention <span lang="ar">· نيّتك</span></label>
-      <textarea id="in-text" maxlength="600" rows="4" required placeholder="Write your intention here · اكتب نيّتك هنا"></textarea>
-      <label class="in-l" for="in-name">Your name, optional <span lang="ar">· اسمك (اختياري)</span></label>
-      <input id="in-name" maxlength="60" placeholder="Name · الاسم">
-      <input id="in-hp" tabindex="-1" aria-hidden="true" class="in-hp">
-      <button type="submit" class="in-btn"><span aria-hidden="true">🕯</span> Light a candle for it <span lang="ar">· أضئ لها شمعة</span></button>
-      <p class="in-private">🔒 Private: only our family reads it, it is never shown on the site <span lang="ar" dir="rtl">· خاصة: لا يقرأها إلا عائلتنا، ولا تظهر على الموقع</span></p>
-      <p class="in-msg" id="in-msg" aria-live="polite"></p>
-    </form>
-  </section>
-
   <section class="cta" aria-labelledby="cta-h">
     <span class="cta-flame" aria-hidden="true"></span>
     <h3 id="cta-h">Be part of this initiative <span class="h-ar" lang="ar">كن جزءاً من هذه المبادرة</span></h3>
@@ -701,6 +682,25 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <a class="btn primary" href="https://www.youtube.com/@ZiadehFamilyAdventures?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube · اشترك بالقناة</a>
       <button type="button" class="btn primary alt" id="add-candle-btn" aria-haspopup="dialog">🕯 Add your candle to the map · ضع شمعتك على الخريطة</button>
       <a class="btn ghost" href="mailto:info@ziadehadventures.com?subject=Forgotten%20church%20%C2%B7%20%D9%83%D9%86%D9%8A%D8%B3%D8%A9%20%D9%85%D9%86%D8%B3%D9%8A%D8%A9">✉ Tell us about a church · احكيلنا عن كنيسة</a>
+    </div>
+      <div class="intent" id="intention" role="group" aria-labelledby="in-h">
+      <div class="in-candle" aria-hidden="true"><span class="in-flame"></span><span class="in-wax"></span></div>
+      <p class="eyebrow">A candle for your intention <span lang="ar">· شمعة على نيّتك</span></p>
+      <h4 id="in-h">Light a candle for an intention <span class="h-ar" lang="ar">أضئ شمعة على نيّة</span></h4>
+      <p class="in-lead">Every so often we print the intentions and place them in a church on our journey, with a candle lit for each one.</p>
+      <p class="in-lead" dir="rtl" lang="ar">كل فترة نطبع النوايا ونضعها في كنيسة من كنائس رحلتنا، ونضيء شمعة لكل نيّة.</p>
+      <form class="in-form" id="in-form" autocomplete="off">
+        <label class="in-l" for="in-text">Your intention <span lang="ar">· نيّتك</span></label>
+        <textarea id="in-text" maxlength="600" rows="4" required placeholder="Write your intention here · اكتب نيّتك هنا"></textarea>
+        <label class="in-l" for="in-for">Who is the candle for? <span lang="ar">· لمن نضيء الشمعة؟</span></label>
+        <input id="in-for" maxlength="80" placeholder="Name of the person · اسم الشخص">
+        <label class="in-l" for="in-name">Your name, optional <span lang="ar">· اسمك أنت (اختياري)</span></label>
+        <input id="in-name" maxlength="60" placeholder="Name · الاسم">
+        <input id="in-hp" tabindex="-1" aria-hidden="true" class="in-hp">
+        <button type="submit" class="in-btn"><span aria-hidden="true">🕯</span> Light a candle for it <span lang="ar">· أضئ لها شمعة</span></button>
+        <p class="in-private">🔒 Private: only our family reads it, it is never shown on the site <span lang="ar" dir="rtl">· خاصة: لا يقرأها إلا عائلتنا، ولا تظهر على الموقع</span></p>
+        <p class="in-msg" id="in-msg" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -1030,7 +1030,8 @@ function renderPassport(){
     if(document.getElementById("in-hp").value) return;             // bots fill the hidden field
     if(text.length<2){msg.textContent="Please write your intention · اكتب نيّتك من فضلك";return;}
     btn.disabled=true; msg.textContent="…";
-    const body=new URLSearchParams({"entry.1376588529":text,"entry.910875391":name});
+    const forWho=document.getElementById("in-for").value.trim();
+    const body=new URLSearchParams({"entry.1376588529":text,"entry.439929432":forWho,"entry.910875391":name});
     try{
       await fetch(FORM,{method:"POST",mode:"no-cors",body});
       f.reset(); box.classList.remove("lit"); void box.offsetWidth; box.classList.add("lit");
