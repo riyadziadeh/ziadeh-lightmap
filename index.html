@@ -216,6 +216,19 @@ footer{background:rgba(255,251,236,.9);border-radius:8px;padding:0 20px 18px}
 .lights:hover{background:#2e1e0c}
 .lo-ic{width:14px;height:20px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#fff4d6,#f3b847 55%,#e0703a);box-shadow:0 0 12px 3px #f3b84799}
 .lights[aria-pressed="true"]{background:#ffe7b0;color:#1e1408}
+.voice{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:15px;background:#fff8e8;color:#1e1408;border:1.5px solid #1e1408;border-radius:999px;padding:9px 16px;cursor:pointer}
+.voice[aria-pressed="true"]{background:#c0392b;border-color:#c0392b;color:#fff}
+.voice[aria-pressed="true"] .vo-ic{animation:vo-pulse 1.2s ease-in-out infinite}
+@keyframes vo-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.voice-hint{margin:10px 0 0;font-size:14px;color:#5a3a12;text-align:center}
+.voice-hint[hidden]{display:none}
+.lo-dock{position:fixed;left:50%;top:max(10px,env(safe-area-inset-top));transform:translateX(-50%);z-index:1000;display:flex;gap:8px;align-items:center;padding:6px;border-radius:999px;background:rgba(30,20,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.lo-dock[hidden]{display:none}
+.lo-dock .lights{padding:8px 14px;font-size:14px;white-space:nowrap}
+.lo-dock .voice{padding:8px 12px}
+body.lights-out .voice:not([aria-pressed="true"]){background:#161b27;color:#ffe7b0;border-color:#3a4258}
+body.lights-out .voice-hint{color:#ffe7b0}
+@media (prefers-reduced-motion:reduce){.voice[aria-pressed="true"] .vo-ic{animation:none}}
 .eras{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .eras-l{font-size:13px;color:var(--dust);margin-inline-end:4px}
 .eras button{font:inherit;font-size:13px;background:rgba(255,251,236,.85);color:var(--parch);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
@@ -227,7 +240,7 @@ body{transition:background-color 1.4s}
 .wrap>*{transition:filter 1.4s,opacity 1.4s}
 .mapbox,.mapbox svg *{transition:fill 1.4s,background-color 1.4s,stroke 1.4s}
 body.lights-out{background-color:#07080c!important;background-image:none!important}
-body.lights-out .wrap>*:not(.stage):not(.toolbar):not(.dark-msg):not(.regions){filter:brightness(.18) saturate(.6)}
+body.lights-out .wrap>*:not(.stage):not(.toolbar):not(.dark-msg):not(.regions):not(.voice-hint):not(.lo-dock){filter:brightness(.18) saturate(.6)}
 body.lights-out .regions button,body.lights-out .eras button{background:#161b27!important;color:#ffe7b0!important;border-color:#3a4258!important}
 body.lights-out .regions button em{color:#ffcf7a;opacity:1}body.lights-out .regions button[aria-pressed="true"] em{color:#1e0f02}
 body.lights-out .regions button[aria-pressed="true"],body.lights-out .eras button[aria-pressed="true"]{background:#ffc240!important;color:#1e0f02!important;border-color:#ffc240!important;box-shadow:0 0 14px rgba(255,190,70,.45)}
@@ -530,6 +543,7 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
 
 <div class="toolbar">
     <button type="button" id="lights" class="lights" aria-pressed="false"><span class="lo-ic" aria-hidden="true"></span><span class="lo-t">Lights out <span lang="ar">· أطفئ الأضواء</span></span></button>
+    <button type="button" id="voice" class="voice" aria-pressed="false"><span class="vo-ic" aria-hidden="true">🎤</span><span class="vo-t">By voice <span lang="ar">· بالصوت</span></span></button>
     <div class="eras" role="group" aria-label="Filter by era">
       <span class="eras-l">Era <span lang="ar">· الحقبة</span></span>
       <button type="button" data-era="all" aria-pressed="true">All <span lang="ar">الكل</span></button>
@@ -538,6 +552,11 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
       <button type="button" data-era="medieval" aria-pressed="false">Medieval <span lang="ar">العصور الوسطى</span></button>
       <button type="button" data-era="modern" aria-pressed="false">Modern shrines <span lang="ar">مزارات حديثة</span></button>
     </div>
+  </div>
+  <p class="voice-hint" id="voicehint" aria-live="polite" hidden></p>
+  <div class="lo-dock" id="lodock" hidden>
+    <button type="button" class="lights" id="lights2" aria-pressed="false"><span class="lo-ic" aria-hidden="true"></span><span class="lo-t">Lights out <span lang="ar">· أطفئ الأضواء</span></span></button>
+    <button type="button" class="voice" id="voice2" aria-pressed="false" aria-label="By voice · بالصوت"><span class="vo-ic" aria-hidden="true">🎤</span></button>
   </div>
   <p class="dark-msg" id="darkmsg" aria-live="polite">In the dark, every candle matters <span lang="ar">· في العتمة، كل شمعة لها معنى</span></p>
 
@@ -952,9 +971,54 @@ function renderPassport(){
 }
 // lights out
 const lb=document.getElementById("lights");
-lb.onclick=()=>{const on=!document.body.classList.contains("lights-out");document.body.classList.toggle("lights-out",on);lb.setAttribute("aria-pressed",on);
-  lb.querySelector(".lo-t").innerHTML=on?'Lights on <span lang="ar">· أشعل الأضواء</span>':'Lights out <span lang="ar">· أطفئ الأضواء</span>';
-  restyle(vb); if(on) document.querySelector(".stage").scrollIntoView({behavior:"smooth",block:"center"});};
+const lb2=document.getElementById("lights2"), lodock=document.getElementById("lodock");
+document.body.appendChild(lodock); // outside the dimmed page so it stays bright and truly fixed
+function setLights(on,scroll){
+  if(document.body.classList.contains("lights-out")===on) return;
+  document.body.classList.toggle("lights-out",on);
+  [lb,lb2].forEach(b=>{b.setAttribute("aria-pressed",on);
+    b.querySelector(".lo-t").innerHTML=on?'Lights on <span lang="ar">· أشعل الأضواء</span>':'Lights out <span lang="ar">· أطفئ الأضواء</span>';});
+  restyle(vb); if(on&&scroll) document.querySelector(".stage").scrollIntoView({behavior:"smooth",block:"center"});
+  updateDock();
+}
+lb.onclick=()=>setLights(!document.body.classList.contains("lights-out"),true);
+lb2.onclick=()=>setLights(!document.body.classList.contains("lights-out"),false);
+// floating switch: stays with the map once the toolbar scrolls out of view (lights out or voice on)
+let toolbarSeen=true;
+function updateDock(){ lodock.hidden = toolbarSeen || !(document.body.classList.contains("lights-out")||listening); }
+if("IntersectionObserver" in window){ new IntersectionObserver(es=>{toolbarSeen=es[0].isIntersecting; updateDock();}).observe(lb); }
+// voice: say «أطفئ» / «أضئ شمعة» (or "lights out" / "lights on")
+const vb1=document.getElementById("voice"), vb2=document.getElementById("voice2"), vhint=document.getElementById("voicehint");
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null, listening=false;
+const HINT='Say «lights out» or «light a candle» <span lang="ar">· قل «أطفئ» أو «أضئ شمعة»</span>';
+function norm(t){return (t||"").toLowerCase().replace(/[\u064B-\u065F\u0670\u0640]/g,"").replace(/[أإآٱ]/g,"ا").replace(/ئ/g,"ي").replace(/ؤ/g,"و").replace(/ء/g,"").replace(/ى/g,"ي");}
+function command(text){
+  const t=norm(text);
+  if(/(^|\s)(و?ا?طف|طفي)|lights? (out|off)|turn (it )?off|blow/.test(t)) return false;   // أطفئ، اطفي، طفّي
+  if(/(^|\s)(و?ا?ضي|ضوي|و?ا?شعل|ولع|نور)|lights? on|light (a |the )?candle|turn (it )?on/.test(t)) return true; // أضئ، ضوّي، أشعل، ولّع، نوّر
+  return null;
+}
+function setVoiceUI(on){ [vb1,vb2].forEach(b=>b.setAttribute("aria-pressed",on)); vhint.hidden=!on; if(on) vhint.innerHTML=HINT; updateDock(); }
+function stopVoice(msg){ listening=false; try{rec&&rec.abort();}catch(e){} rec=null; setVoiceUI(false); if(msg){vhint.hidden=false; vhint.innerHTML=msg;} }
+let lastCmd=0;
+function startVoice(){
+  if(!SR){ vhint.hidden=false; vhint.innerHTML='Voice commands are not supported in this browser, try Chrome <span lang="ar">· الأوامر الصوتية غير مدعومة في هذا المتصفح، جرّب Chrome</span>'; return; }
+  rec=new SR(); rec.lang="ar-JO"; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=3;
+  rec.onresult=e=>{
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      for(let j=0;j<e.results[i].length;j++){
+        const c=command(e.results[i][j].transcript);
+        if(c!==null && Date.now()-lastCmd>1200){ lastCmd=Date.now(); setLights(!c,false); return; }
+      }
+    }
+  };
+  rec.onerror=e=>{ if(e.error==="not-allowed"||e.error==="service-not-allowed") stopVoice('Allow the microphone to use voice <span lang="ar">· اسمح باستخدام المايكروفون لتعمل الأوامر الصوتية</span>'); };
+  rec.onend=()=>{ if(listening){ try{rec.start();}catch(e){} } };
+  listening=true; setVoiceUI(true);
+  try{ rec.start(); }catch(e){ stopVoice(); }
+}
+[vb1,vb2].forEach(b=>b.onclick=()=>listening?stopVoice():startVoice());
 // eras
 let era="all";
 document.querySelectorAll(".eras button").forEach(b=>b.onclick=()=>{era=b.dataset.era;
