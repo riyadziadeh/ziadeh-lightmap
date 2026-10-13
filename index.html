@@ -253,16 +253,26 @@ body.lights-out .voice-hint{color:#ffe7b0}
 .intent.lit .in-flame{animation:in-flick 1.7s ease-in-out infinite,in-burst .9s ease-out}
 @keyframes in-flick{0%,100%{transform:scale(1) rotate(-1deg)}35%{transform:scale(1.06,1.12) rotate(2deg)}70%{transform:scale(.96,1.04) rotate(-2deg)}}
 @keyframes in-burst{0%{transform:scale(.4)}60%{transform:scale(1.6)}100%{transform:scale(1)}}
-.in-form{position:relative;display:grid;gap:8px;max-width:520px;margin:22px auto 0;text-align:start}
-.in-l{font-weight:700;font-size:14px;color:#ffd794;margin-top:6px}
-.in-form textarea,.in-form input:not(.in-hp){font:inherit;font-size:16px;color:#2b1606;background:#fff6e2;border:2px solid #e9c27a;border-radius:14px;padding:12px 14px;resize:vertical;box-shadow:inset 0 2px 6px rgba(120,70,10,.12)}
-.in-form textarea:focus,.in-form input:focus{outline:none;border-color:#ffb43c;box-shadow:0 0 0 4px rgba(255,180,60,.3)}
-.in-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.in-btn{margin-top:12px;justify-self:center;display:inline-flex;flex-wrap:wrap;justify-content:center;text-align:center;align-items:center;gap:4px 10px;font:inherit;font-weight:800;font-size:16px;color:#2a1402;cursor:pointer;border:0;border-radius:999px;padding:13px 26px;
-  background:linear-gradient(135deg,#ffe08a,#ffb43c 55%,#f08a24);box-shadow:0 8px 24px rgba(255,150,40,.4);transition:transform .15s,box-shadow .15s}
-.in-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,150,40,.55)}
-.in-btn:disabled{opacity:.6;cursor:wait;transform:none}
-.in-private{margin:8px 0 0;text-align:center;font-size:13px;color:#d9bf8c}
+.in-total{position:relative;display:flex;flex-direction:column;align-items:center;margin:18px auto 4px}
+.in-total-n{font-family:var(--f-display);font-size:clamp(34px,6vw,48px);line-height:1;color:#ffd27a;text-shadow:0 0 18px rgba(255,170,60,.55)}
+.in-total-t{font-size:14px;color:#f3dcb4;margin-top:6px}
+.in-grid{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 0}
+@media (min-width:640px){.in-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}
+.in-card{position:relative;display:grid;grid-template-rows:auto auto auto 1fr;justify-items:center;gap:2px;padding:14px 8px 12px;border-radius:16px;cursor:pointer;font:inherit;color:#ffe9c2;text-align:center;
+  background:linear-gradient(180deg,rgba(255,214,140,.10),rgba(255,214,140,.03));border:1px solid rgba(255,196,100,.28);transition:transform .15s,border-color .2s,background .2s,box-shadow .2s}
+.in-card:hover{transform:translateY(-2px);border-color:rgba(255,196,100,.6)}
+.in-card:focus-visible{outline:3px solid #ffb43c;outline-offset:2px}
+.in-ic{font-size:26px;line-height:1.2}
+.in-ar{font-family:var(--f-ar);font-weight:700;font-size:16px;color:#fff1d6;line-height:1.35}
+.in-en{font-size:12.5px;color:#d9bf8c;line-height:1.3}
+.in-n{display:inline-flex;align-items:center;gap:6px;margin-top:8px;align-self:end;font-family:var(--f-mono);font-size:13px;color:#ffd27a;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.28)}
+.in-dot{width:7px;height:11px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 72%,#fff7da,#ffc34a 55%,#ff7a1e);opacity:.45;transition:opacity .3s,box-shadow .3s}
+.in-card.lit{background:linear-gradient(180deg,rgba(255,190,80,.28),rgba(255,150,40,.10));border-color:#ffc56b;box-shadow:0 0 22px rgba(255,170,60,.35),inset 0 0 0 1px rgba(255,230,170,.25);cursor:default}
+.in-card.lit .in-dot{opacity:1;box-shadow:0 0 8px 2px rgba(255,170,60,.7)}
+.in-card.lit .in-n{background:rgba(255,190,80,.22);color:#fff3cf}
+.in-card.pop .in-n{animation:in-pop .6s ease-out}
+@keyframes in-pop{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+.in-private{margin:14px 0 0;text-align:center;font-size:12.5px;line-height:1.6;color:#cdb283}
 .in-msg{margin:4px 0 0;text-align:center;font-size:16px;font-weight:700;color:#ffe08a;min-height:1.2em}
 @media (prefers-reduced-motion:reduce){.in-flame{animation:none}}
 /* lights out */
@@ -685,22 +695,14 @@ body.lights-out .flame-shape{filter:drop-shadow(0 0 5px #fff3b0) drop-shadow(0 0
     </div>
       <div class="intent" id="intention" role="group" aria-labelledby="in-h">
       <div class="in-candle" aria-hidden="true"><span class="in-flame"></span><span class="in-wax"></span></div>
-      <p class="eyebrow">A candle for your intention <span lang="ar">· شمعة على نيّتك</span></p>
+      <p class="eyebrow">A candle for an intention <span lang="ar">· شمعة على نيّة</span></p>
       <h4 id="in-h">Light a candle for an intention <span class="h-ar" lang="ar">أضئ شمعة على نيّة</span></h4>
-      <p class="in-lead">Every so often we print the intentions and place them in a church on our journey, with a candle lit for each one.</p>
-      <p class="in-lead" dir="rtl" lang="ar">كل فترة نطبع النوايا ونضعها في كنيسة من كنائس رحلتنا، ونضيء شمعة لكل نيّة.</p>
-      <form class="in-form" id="in-form" autocomplete="off">
-        <label class="in-l" for="in-text">Your intention <span lang="ar">· نيّتك</span></label>
-        <textarea id="in-text" maxlength="600" rows="4" required placeholder="Write your intention here · اكتب نيّتك هنا"></textarea>
-        <label class="in-l" for="in-for">Who is the candle for? <span lang="ar">· لمن نضيء الشمعة؟</span></label>
-        <input id="in-for" maxlength="80" placeholder="Name of the person · اسم الشخص">
-        <label class="in-l" for="in-name">Your name, optional <span lang="ar">· اسمك أنت (اختياري)</span></label>
-        <input id="in-name" maxlength="60" placeholder="Name · الاسم">
-        <input id="in-hp" tabindex="-1" aria-hidden="true" class="in-hp">
-        <button type="submit" class="in-btn"><span aria-hidden="true">🕯</span> Light a candle for it <span lang="ar">· أضئ لها شمعة</span></button>
-        <p class="in-private">🔒 Private: only our family reads it, it is never shown on the site <span lang="ar" dir="rtl">· خاصة: لا يقرأها إلا عائلتنا، ولا تظهر على الموقع</span></p>
-        <p class="in-msg" id="in-msg" aria-live="polite"></p>
-      </form>
+      <p class="in-lead">Choose an intention and light a candle. Your candle joins every candle lit for it around the world.</p>
+      <p class="in-lead" dir="rtl" lang="ar">اختر نيّة وأضئ لها شمعة، فتنضمّ شمعتك إلى كل الشموع التي أُضيئت لها حول العالم.</p>
+      <div class="in-total" aria-live="polite"><span class="in-total-n" id="in-total">…</span><span class="in-total-t">candles lit around the world <span lang="ar">· شمعة أُضيئت حول العالم</span></span></div>
+      <div class="in-grid" id="in-grid"></div>
+      <p class="in-msg" id="in-msg" aria-live="polite"></p>
+      <p class="in-private">One candle per intention each day · <span lang="ar">شمعة واحدة لكل نيّة في اليوم</span><br>We count candles only, nothing about you is saved · <span lang="ar">نعدّ الشموع فقط، ولا نحفظ أي شيء عنك</span></p>
     </div>
   </section>
 
@@ -1019,27 +1021,57 @@ function renderPassport(){
   document.getElementById("pp-n").textContent=n;
 }
 
-// intentions: sent privately to the family's Google Form (linked to a Google Sheet); never shown on the site
+// intentions: choose one and light a candle; only anonymous per-intention counts are kept (counter service), nothing about the visitor
 (function(){
-  const f=document.getElementById("in-form"); if(!f) return;
-  const FORM="https://docs.google.com/forms/d/e/1FAIpQLScgFfeMiNXYklWVqt4XzltNi8E2aJj1Hrqn1iCeP2OEGTOFtg/formResponse";
-  const msg=document.getElementById("in-msg"), btn=f.querySelector(".in-btn"), box=f.closest(".intent");
-  f.addEventListener("submit",async e=>{
-    e.preventDefault();
-    const text=document.getElementById("in-text").value.trim(), name=document.getElementById("in-name").value.trim();
-    if(document.getElementById("in-hp").value) return;             // bots fill the hidden field
-    if(text.length<2){msg.textContent="Please write your intention · اكتب نيّتك من فضلك";return;}
-    btn.disabled=true; msg.textContent="…";
-    const forWho=document.getElementById("in-for").value.trim();
-    const body=new URLSearchParams({"entry.1376588529":text,"entry.439929432":forWho,"entry.910875391":name});
-    try{
-      await fetch(FORM,{method:"POST",mode:"no-cors",body});
-      f.reset(); box.classList.remove("lit"); void box.offsetWidth; box.classList.add("lit");
-      msg.innerHTML='🕯 Your intention has reached us, we will light a candle for it <span lang="ar">· وصلتنا نيّتك، وسنضيء لها شمعة</span>';
-    }catch(err){
-      msg.textContent="Could not send, please try again · تعذّر الإرسال، حاول مرة أخرى";
-    }finally{ btn.disabled=false; }
+  const grid=document.getElementById("in-grid"); if(!grid) return;
+  const API="https://abacus.jasoncameron.dev", NS="ziadehadventures-lightmap";
+  const ITEMS=[
+    ["peace","🕊️","للسلام في العالم","Peace in the world"],
+    ["holyland","🫒","للسلام في الأرض المقدّسة","Peace in the Holy Land"],
+    ["children","👶","للأطفال","For the children"],
+    ["health","💚","للصحة والعافية","Health and healing"],
+    ["family","👨‍👩‍👧","للعائلة","For families"],
+    ["departed","🕯️","لأرواح من رحلوا","For those who passed away"],
+    ["unity","✝️","لوحدة الكنائس","Unity of the Churches"],
+    ["sick","🤲","للمرضى والمتألمين","For the sick and suffering"],
+    ["refugees","🏠","للاجئين والمهجّرين","For refugees and the displaced"],
+    ["work","🌾","للرزق والعمل","Work and daily bread"],
+    ["thanks","🙏","للشكر","In thanksgiving"],
+    ["private","✨","نيّة خاصة في قلبي","A private intention in my heart"]
+  ];
+  const counts={}, box=grid.closest(".intent"), msg=document.getElementById("in-msg"), totalEl=document.getElementById("in-total");
+  const fmt=n=>Number(n||0).toLocaleString("en-US");
+  const today=new Date().toISOString().slice(0,10);
+  const litKey=k=>"lm-lit-"+k;
+  function litToday(k){ try{ return localStorage.getItem(litKey(k))===today; }catch(e){ return false; } }
+  function markLit(k){ try{ localStorage.setItem(litKey(k),today); }catch(e){} }
+  function renderTotal(){ const vals=Object.values(counts); totalEl.textContent=vals.length?fmt(vals.reduce((a,b)=>a+b,0)):"…"; }
+  ITEMS.forEach(([k,ic,ar,en])=>{
+    const b=document.createElement("button"); b.type="button"; b.className="in-card"; b.dataset.k=k;
+    b.innerHTML=`<span class="in-ic" aria-hidden="true">${ic}</span><span class="in-ar" lang="ar" dir="rtl">${ar}</span><span class="in-en">${en}</span><span class="in-n"><span class="in-dot" aria-hidden="true"></span><span class="in-c">…</span></span>`;
+    b.setAttribute("aria-label",`${en} · ${ar}`);
+    if(litToday(k)){ b.classList.add("lit"); b.setAttribute("aria-pressed","true"); }
+    b.onclick=()=>light(k,b,ar,en);
+    grid.appendChild(b);
   });
+  function show(k){ const el=grid.querySelector(`[data-k="${k}"] .in-c`); if(el) el.textContent=fmt(counts[k]); }
+  async function load(){
+    await Promise.all(ITEMS.map(async([k])=>{
+      try{ const r=await fetch(`${API}/get/${NS}/${k}`); counts[k]=r.ok?((await r.json()).value||0):0; }catch(e){ counts[k]=0; }
+      show(k);
+    }));
+    renderTotal();
+  }
+  async function light(k,b,ar,en){
+    if(b.classList.contains("lit")){ msg.innerHTML=`🕯 You already lit a candle for this today <span lang="ar">· أضأت شمعة لهذه النيّة اليوم</span>`; return; }
+    b.classList.add("lit"); b.setAttribute("aria-pressed","true"); markLit(k);
+    counts[k]=(counts[k]||0)+1; show(k); renderTotal();
+    b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+    box.classList.remove("lit"); void box.offsetWidth; box.classList.add("lit");
+    msg.innerHTML=`🕯 Your candle is lit: ${en} <span lang="ar" dir="rtl">· أُضيئت شمعتك: ${ar}</span>`;
+    try{ const r=await fetch(`${API}/hit/${NS}/${k}`); if(r.ok){ const v=(await r.json()).value; if(v){ counts[k]=v; show(k); renderTotal(); } } }catch(e){}
+  }
+  if("IntersectionObserver" in window){ const io=new IntersectionObserver(es=>{ if(es[0].isIntersecting){ io.disconnect(); load(); } },{rootMargin:"300px"}); io.observe(grid); } else load();
 })();
 // lights out
 const lb=document.getElementById("lights");
